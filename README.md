@@ -3,7 +3,7 @@ Analysis scripts for eyelid conditioning experiments
 
 The scripts and functions in this repository are modifications of the original analysis code found at github.com/blinklab/neuroblinks. 
 
-shadedErrorBar.m is a public function available on MATLAB File Exchange that is used in the following script: calibEyelidSumsAllTrials.m
+shadedErrorBar.m is a public function available on MATLAB File Exchange that is used in the following script: plotLearningCurves.m
 
 
 Image processing software (FIJI/ImageJ) is requried for imageSubtraction.m
