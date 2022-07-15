@@ -7,7 +7,7 @@ hold off
 if numel(unique(rig)) == 1
     % Heatmap of block-processed eyelid traces 
     h = heatmap(blockAveragedDownSignal);
-    title([mouse ' CS-US eyelid traces ' num2str(size(blockSizeTemp,1)) '-trial blocks']);
+    title([mouse ' CS-US eyelid traces ' num2str(blockSizeTemp(1)) '-trial blocks']);
     xlabel('Time from CS (s)');
     ylabel('Trial block');
     colormap(jet); %turbo in newer versions
@@ -53,7 +53,7 @@ if numel(unique(rig)) == 1
     figure;
     hf1 = plot(CRamps);
     title([mouse ' CRamp across all trials']);
-    xlabel('Trial block (100 trials each)');
+    xlabel(['Trial block ( ' num2str(blockSizeTemp(1)) ' trials each)']);
     ylabel('FEC');
     xlim([0 size(blockAveragedDownSignal,1)]); ylim([0 1]);
     set(gca,'ytick',0:0.1:1);
@@ -62,7 +62,7 @@ if numel(unique(rig)) == 1
     figure;
     hf2 = plot(CRprobs);
     title([mouse ' CRprob across all trials']);
-    xlabel('Trial block (100 trials each)');
+    xlabel(['Trial block ( ' num2str(blockSizeTemp(1)) ' trials each)']);
     ylabel('Probability');
     xlim([0 size(blockAveragedDownSignal,1)]); ylim([0 1]);
 elseif numel(unique(rig)) > 1
@@ -78,7 +78,7 @@ elseif numel(unique(rig)) > 1
     end
     blockAveragedDownSignal = vertcat(blockAveragedDownSignal{:});
     h = heatmap(blockAveragedDownSignal);
-    title([mouse ' CS-US eyelid traces ' num2str(size(blockSizeTemp,1)) '-trial blocks']);
+    title([mouse ' CS-US eyelid traces ' num2str(blockSizeTemp(1)) '-trial blocks']);
     xlabel('Time from CS (s)');
     ylabel('Trial block');
     colormap(jet); %turbo in newer versions
@@ -124,7 +124,7 @@ elseif numel(unique(rig)) > 1
     figure;
     hf1 = plot(CRamps);
     title([mouse ' CRamp across all trials']);
-    xlabel('Trial block (100 trials each)');
+    xlabel(['Trial block ( ' num2str(blockSizeTemp(1)) ' trials each)']);
     ylabel('FEC');
     xlim([0 size(blockAveragedDownSignal,1)]); ylim([0 1]);
     set(gca,'ytick',0:0.1:1);
@@ -133,7 +133,7 @@ elseif numel(unique(rig)) > 1
     figure;
     hf2 = plot(CRprobs);
     title([mouse ' CRprob across all trials']);
-    xlabel('Trial block (100 trials each)');
+    xlabel(['Trial block ( ' num2str(blockSizeTemp(1)) ' trials each)']);   
     ylabel('Probability');
     xlim([0 size(blockAveragedDownSignal,1)]); ylim([0 1]);
 end
