@@ -248,7 +248,7 @@ elseif numel(unique(rig)) > 1
                         end
                     end
                 end
-                latencies{k}{ii} = idx{k}{ii}*0.3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 0.3 ms/frame
+                latencies{k}{ii} = idx{k}{ii}*0.8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 0.3 ms/frame
             end
         end  
     end
