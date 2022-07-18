@@ -1,4 +1,6 @@
-%% Calculate latency to different aspects of learned CR
+%% Calculate latency to different aspects of learned CR %%
+
+& Written by Kayla Fernando (7/18/22)
 
 clear all
 close all
