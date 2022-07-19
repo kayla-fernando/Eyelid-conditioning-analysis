@@ -259,3 +259,55 @@ elseif numel(unique(rig)) > 1
 end
 
 sort_latencies = sort(latencies);
+
+%% Latency to CR peak
+
+if numel(unique(rig)) == 1
+    if strcmp(rig,'black') == 1
+        for k = 1:size(keep_trials,1)
+            keep_trials_temp = keep_trials(k,68:151); % entire CS window
+            idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
+            latencies{k} = idx{k}*0.3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 0.3 ms/frame
+        end
+    elseif strcmp(rig,'blue') == 1 
+        for k = 1:size(keep_trials,1)
+            keep_trials_temp = keep_trials(k,24:53); % entire CS window
+            idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
+            latencies{k} = idx{k}*0.8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 0.8 ms/frame
+        end
+    end
+    latencies = vertcat(latencies{:}); % latencies b/w CS onset and CR peak in ms
+elseif numel(unique(rig)) > 1
+    idx = cell(1,length(files));
+    latencies = cell(1,length(files));
+    for k = 1:length(files)
+        keep_cramp_temp = keep_cramp{k};
+        idx{k} = cell(1,length(keep_cramp));
+        latencies{k} = cell(1,length(keep_cramp));
+    end
+    for k = 1:length(files)
+        if strcmp(rig{k},'black') == 1
+            keep_cramp_temp = keep_cramp{k};
+            keep_trials_temp = keep_trials{k};
+            keep_trials_window = keep_trials_temp(:,68:151);
+            for ii = 1:length(keep_cramp_temp)
+                idx{k}{ii} = find(keep_trials_window(ii,:) == max(keep_trials_temp(ii)),1,'first');  
+                latencies{k}{ii} = idx{k}{ii}*0.3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 0.3 ms/frame
+            end
+        elseif strcmp(rig{k},'blue') == 1
+            keep_cramp_temp = keep_cramp{k};
+            keep_trials_temp = keep_trials{k};
+            keep_trials_window = keep_trials_temp(:,24:38);
+            for ii = 1:length(keep_cramp_temp)
+                idx{k}{ii} = find(keep_trials_window(ii,:) == max(keep_trials_temp(ii)),1,'first'); 
+                latencies{k}{ii} = idx{k}{ii}*0.8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 0.8 ms/frame
+            end
+        end  
+    end
+    for k = 1:length(files)
+        t{k} = cell2mat(latencies{k});
+    end
+    latencies = horzcat(t{1:length(files)})';
+end
+
+sort_latencies = sort(latencies);
