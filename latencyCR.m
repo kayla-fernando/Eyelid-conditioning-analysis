@@ -158,7 +158,7 @@ if numel(unique(rig)) == 1
     abs_five_percent = keep_cramp*0.05; % an absolute value
     if strcmp(rig,'black') == 1
         baseline_five_percent = round(mean(keep_trials(:,1:66),2)+abs_five_percent,2); % add this absolute value to the baseline value in each trial
-        for k = 1:length(keep_trials)
+        for k = 1:size(keep_trials,1)
             keep_trials_temp = keep_trials(k,68:129); % window between CS onset and US onset
             idx{k} = find(round(keep_trials_temp,2) == baseline_five_percent(k),1,'last'); % find the last index where the eyelid position equals baseline_five_percent (closest to the US onset)
             if isempty(idx{k}) % if you can't get an exact match
@@ -175,7 +175,7 @@ if numel(unique(rig)) == 1
         end
     elseif strcmp(rig,'blue') == 1 
         baseline_five_percent = round(mean(keep_trials(:,1:10),2)+abs_five_percent,2); % add this absolute value to the baseline value in each trial
-        for k = 1:length(keep_trials)
+        for k = 1:size(keep_trials,1)
             keep_trials_temp = keep_trials(k,24:38); % window between CS onset and US onset
             idx{k} = find(round(keep_trials_temp,2) == baseline_five_percent(k),1,'last'); % find the last index where the eyelid position equals baseline_five_percent (closest to the US onset)
             if isempty(idx{k}) % if you can't get an exact match
