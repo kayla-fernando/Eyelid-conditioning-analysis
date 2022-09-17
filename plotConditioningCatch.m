@@ -12,7 +12,7 @@ function [ax3,ax4,win] = plotConditioningCatch(conditioning_trials,catch_trials,
 for k = first_analysis_day:length(files)
     % First, determine the analysis window
     if strcmp(rig{k},'black') == 1
-        win{k} = [126 127 128 129]; 
+        win{k} = [108 109 110 111]; 
     elseif strcmp(rig{k},'blue') == 1
         win{k} = [35 36 37 38];
     end  
@@ -38,8 +38,8 @@ for k = first_analysis_day:length(files)
         if strcmp(rig{k},'black') == 1
            xline(68,'b'); xline(151,'b'); % 2018b and newer
     %        l1 = line([68 68], [0 1]); set(l1,'color','b'); l2 = line([151 151], [0 1]); set(l2,'color','b');
-           xline(130,'g'); xline(137,'g'); % 2018b and newer
-    %        l1 = line([130 130], [0 1]); set(l1,'color','g'); l2 = line([137 137], [0 1]); set(l2,'color','g');
+           xline(112,'g'); xline(119,'g'); % 2018b and newer
+    %        l1 = line([112 112], [0 1]); set(l1,'color','g'); l2 = line([119 119], [0 1]); set(l2,'color','g');
         elseif strcmp(rig{k},'blue') == 1
             xline(24,'b'); xline(53,'b'); % 2018b and newer
     %         l1 = line([24 24], [0 1]); set(l1,'color','b'); l2 = line([53 53], [0 1]); set(l2,'color','b');
