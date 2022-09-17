@@ -33,8 +33,8 @@ if numel(unique(rig)) == 1
             CS_col_1 = 68;  % frame
             CS_col_2 = 151; % frame
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 130; % frame
-            US_col_2 = 137; % frame
+            US_col_1 = 112; % frame
+            US_col_2 = 119; % frame
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         elseif strcmp(rig{k},'blue') == 1
             CS_col_1 = 24;  % frame
@@ -104,8 +104,8 @@ elseif numel(unique(rig)) > 1
             CS_col_1 = 68;  % frame
             CS_col_2 = 151; % frame
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 130; % frame
-            US_col_2 = 137; % frame
+            US_col_1 = 112; % frame
+            US_col_2 = 119; % frame
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         elseif strcmp(rig{k},'blue') == 1
             CS_col_1 = 24;  % frame
