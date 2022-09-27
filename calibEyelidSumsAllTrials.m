@@ -129,10 +129,10 @@ end
 if numel(unique(rig)) == 1
     % Binned CRamp
         if strcmp(rig,'black') == 1
-            win = [108 109 110 111];
+            win = [139 140 141 142];
             cramp = mean(trialType(:,win),2) - mean(trialType(:,1:66),2); 
         elseif strcmp(rig,'blue') == 1
-            win = [35 36 37 38];
+            win = [47 48 49 50];
             cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2); 
         end
         blockSize2 = [100, 1];
@@ -148,11 +148,11 @@ elseif numel(unique(rig)) > 1
     for k = 1:length(files)
         % Binned CRamp
             if strcmp(rig{k},'black') == 1
-                win{k} = [108 109 110 111];
+                win{k} = [139 140 141 142];
                 trialTypeTemp = trialType{k};
                 cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:66),2); 
             elseif strcmp(rig{k},'blue') == 1
-                win{k} = [35 36 37 38];
+                win{k} = [47 48 49 50];
                 trialTypeTemp = trialType{k};
                 cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:10),2); 
             end
