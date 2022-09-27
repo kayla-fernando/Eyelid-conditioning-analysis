@@ -33,15 +33,15 @@ if numel(unique(rig)) == 1
             CS_col_1 = 68;  % frame
             CS_col_2 = 151; % frame
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 112; % frame
-            US_col_2 = 119; % frame
+            US_col_1 = 143; % frame
+            US_col_2 = 153; % frame
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         elseif strcmp(rig{k},'blue') == 1
             CS_col_1 = 24;  % frame
             CS_col_2 = 53; % frame
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 39; % frame
-            US_col_2 = 42; % frame
+            US_col_1 = 51; % frame
+            US_col_2 = 54; % frame
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         end
     end
@@ -104,15 +104,15 @@ elseif numel(unique(rig)) > 1
             CS_col_1 = 68;  % frame
             CS_col_2 = 151; % frame
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 112; % frame
-            US_col_2 = 119; % frame
+            US_col_1 = 143; % frame
+            US_col_2 = 153; % frame
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         elseif strcmp(rig{k},'blue') == 1
             CS_col_1 = 24;  % frame
             CS_col_2 = 53; % frame
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 39; % frame
-            US_col_2 = 42; % frame
+            US_col_1 = 51; % frame
+            US_col_2 = 54; % frame
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         end
     end
