@@ -16,9 +16,9 @@ end
 % Make batch CRprob and CRamp plots
 for n = 1:length(mouse);
     if strcmp(rig{n},'black') == 1
-        win = [108 109 110 111]; %determined through imageSubtraction.m
+        win = [139 140 141 142]; %determined through imageSubtraction.m
     elseif strcmp(rig{n},'blue') == 1 
-        win = [35 36 37 38]; %determined through imageSubtraction.m
+        win = [47 48 49 50]; %determined through imageSubtraction.m
     end
     
     isi = 250;
