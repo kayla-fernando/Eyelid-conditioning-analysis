@@ -20,7 +20,7 @@ for k = 1:(round(size_grab(1)/400)*4)
     nexttile
     title(t,'Every 100th CS-US trial')
     rectangle('Position',[68,0,83,1],'FaceColor','b','linestyle','none'); hold on
-    rectangle('Position',[112,0,7,1],'FaceColor','g','linestyle','none'); 
+    rectangle('Position',[143,0,10,1],'FaceColor','g','linestyle','none'); 
     plot(cspaired_all(jj,:)); ylim([0 1]); xlim([0 334]);
     ylabel(['Trial ' num2str(jj)]); hold off
 end
@@ -44,7 +44,7 @@ for k = 1:(round(size_grab(1)/5))
     jj = k*5;
     nexttile
     title(t,'Every 5th US-only trial')
-    rectangle('Position',[112,0,7,1],'FaceColor','g','linestyle','none'); hold on
+    rectangle('Position',[143,0,10,1],'FaceColor','g','linestyle','none'); hold on
     plot(usonly_all(jj,:)); ylim([0 1]); xlim([0 334]);
     ylabel(['Trial ' num2str(jj)]); hold off
 end
