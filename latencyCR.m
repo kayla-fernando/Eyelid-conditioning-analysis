@@ -88,7 +88,7 @@ end
 
 if numel(unique(rig)) == 1
     if strcmp(rig,'black') == 1
-        win = [108 109 110 111]; % determined through imageSubtraction.m
+        win = [139 140 141 142]; % determined through imageSubtraction.m
         cramp = mean(trialType(:,win),2) - mean(trialType(:,1:66),2);
         for k = 1:length(cramp)
             if cramp(k) > 0.1 % 10 percent of normalized eyelid position throughout the trial
@@ -99,7 +99,7 @@ if numel(unique(rig)) == 1
         keep_trials = vertcat(keep_trials{:});
         keep_cramp = mean(keep_trials(:,win),2) - mean(keep_trials(:,1:66),2); % keep the CRamp values that satisfy criterion
     elseif strcmp(rig,'blue') == 1 
-        win = [35 36 37 38]; % determined through imageSubtraction.m
+        win = [47 48 49 50]; % determined through imageSubtraction.m
         cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2);
         for k = 1:length(cramp)
             if cramp(k) > 0.1 % 10 percent of normalized eyelid position throughout the trial
@@ -114,7 +114,7 @@ elseif numel(unique(rig)) > 1
     keep_trials = cell(1,length(files));
     for k = 1:length(files)
         if strcmp(rig{k},'black') == 1
-            win{k} = [108 109 110 111];
+            win{k} = [139 140 141 142];
             trialTypeTemp = trialType{k};
             cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:66),2); 
             keep_trials_temp = keep_trials{k};
@@ -127,7 +127,7 @@ elseif numel(unique(rig)) > 1
                 end
             end
         elseif strcmp(rig{k},'blue') == 1
-            win{k} = [35 36 37 38];
+            win{k} = [47 48 49 50];
             trialTypeTemp = trialType{k};
             cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:10),2); 
             keep_trials_temp = keep_trials{k};
