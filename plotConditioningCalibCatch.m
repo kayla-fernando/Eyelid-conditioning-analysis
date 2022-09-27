@@ -9,14 +9,14 @@ for k = first_analysis_day:length(files)
     plot(conditioning_trials{1, k}); 
     if strcmp(rig{k},'black') == 1
         xline(gca,68,'b-','Alpha',1); xline(gca,151,'b-','Alpha',1); % 2018b and newer
-        xline(gca,112,'g-','Alpha',1); xline(gca,119,'g-','Alpha',1); % 2018b and newer
+        xline(gca,143,'g-','Alpha',1); xline(gca,153,'g-','Alpha',1); % 2018b and newer
 %     l1 = line([68 68], [0 1]); set(l1,'color','b'); l2 = line([151 151], [0 1]); set(l2,'color','b');
-%     l1 = line([112 112], [0 1]); set(l1,'color','g'); l2 = line([119 119], [0 1]); set(l2,'color','g');
+%     l1 = line([143 143], [0 1]); set(l1,'color','g'); l2 = line([153 153], [0 1]); set(l2,'color','g');
     elseif strcmp(rig{k},'blue') == 1
         xline(gca,24,'b-','Alpha',1); xline(gca,53,'b-','Alpha',1); % 2018b and newer
-        xline(gca,39,'g-','Alpha',1); xline(gca,42,'g-','Alpha',1); % 2018b and newer
+        xline(gca,51,'g-','Alpha',1); xline(gca,54,'g-','Alpha',1); % 2018b and newer
 %     l1 = line([24 24], [0 1]); set(l1,'color','b'); l2 = line([53 53], [0 1]); set(l2,'color','b');
-%     l1 = line([39 39], [0 1]); set(l1,'color','g'); l2 = line([42 42], [0 1]); set(l2,'color','g');
+%     l1 = line([51 51], [0 1]); set(l1,'color','g'); l2 = line([54 54], [0 1]); set(l2,'color','g');
     end
     title([mouse ' ' num2str(date{k}) ' (Day ' num2str(k) ') average of ' num2str(size(eyelid3_5_trials{k},1)) ' CS-US trials']);  
     ylabel('FEC'); 
@@ -26,11 +26,11 @@ for k = first_analysis_day:length(files)
     ax6 = subplot(3,1,2); 
     plot(calib_trials{1, k}); 
     if strcmp(rig{k},'black') == 1
-        xline(gca,112,'g-','Alpha',1); xline(gca,119,'g-','Alpha',1); % 2018b and newer
-%     l1 = line([112 112], [0 1]); set(l1,'color','g'); l2 = line([119 119], [0 1]); set(l2,'color','g');
+        xline(gca,143,'g-','Alpha',1); xline(gca,153,'g-','Alpha',1); % 2018b and newer
+%     l1 = line([143 143], [0 1]); set(l1,'color','g'); l2 = line([153 153], [0 1]); set(l2,'color','g');
     elseif strcmp(rig{k},'blue') == 1
-        xline(gca,39,'g-','Alpha',1); xline(gca,42,'g-','Alpha',1); % 2018b and newer
-%     l1 = line([39 39], [0 1]); set(l1,'color','g'); l2 = line([42 42], [0 1]); set(l2,'color','g');
+        xline(gca,51,'g-','Alpha',1); xline(gca,54,'g-','Alpha',1); % 2018b and newer
+%     l1 = line([51 51], [0 1]); set(l1,'color','g'); l2 = line([54 54], [0 1]); set(l2,'color','g');
     end
     title([mouse ' ' num2str(date{k}) ' (Day ' num2str(k) ') average of ' num2str(size(eyelid3_7_trials{k},1)) ' US-only trials']); 
     ylabel('FEC'); 
