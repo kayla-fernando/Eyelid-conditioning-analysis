@@ -46,8 +46,9 @@ saveastiff(Data,[mouse '_' date '_s01_' num2str(usonlytrials(analyze_trial)) '_b
 
 %% ImageJ
 
-javaaddpath('C:\Program Files\MATLAB\R2019b\java\mij.jar');
-javaaddpath('C:\Program Files\MATLAB\R2019b\java\ij.jar');
+vers = ['R' version('-release')];
+javaaddpath(['C:\Program Files\MATLAB\' vers '\java\mij.jar']);
+javaaddpath(['C:\Program Files\MATLAB\' vers '\java\ij.jar']);
 MIJ.start(java.lang.String(basepath2)); % loads macros
 
 % Load the baseline .tiff
