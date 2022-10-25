@@ -311,3 +311,37 @@ elseif numel(unique(rig)) > 1
 end
 
 sort_latencies = sort(latencies);
+
+%% CDF histograms 
+
+% Load workspace
+load('ASTN2 latencies all trials.mat');
+
+filename = {KO_onset_paired, WT_onset_paired};
+forHist = [];
+        
+% KO 
+KO_onset_paired_cell = convert2cell(filename{1});
+[h1,forHist_KO_onset_paired] = cdfEventHistCells(KO_onset_paired_cell,forHist,'latency','ms');
+set(h1, 'EdgeColor', 'r');
+forHist_KO_onset_paired_WX = reshape(forHist_KO_onset_paired,[],1);
+
+hold on;
+
+% WT 
+WT_onset_paired_cell = convert2cell(filename{2});
+[h2,forHist_WT_onset_paired] = cdfEventHistCells(WT_onset_paired_cell,forHist,'latency','ms');
+set(h2, 'EdgeColor', 'k');
+forHist_WT_onset_paired_WX = reshape(forHist_WT_onset_paired,[],1);
+
+xlim([0 220]);
+ylim([0 1]);
+hold off
+
+% % Two-sample Komolgorov-Smirnov test 
+% % In command window:
+% [x,p,ks2stat] = kstest2(forAmpHist_KO_M_KS,forAmpHist_WT_M_KS)
+
+% % Wilcoxon rank-sum test
+% % In command window:
+% [p,h,stats] = ranksum(forAmpHist_KO_M_WX,forAmpHist_WT_M_WX)
