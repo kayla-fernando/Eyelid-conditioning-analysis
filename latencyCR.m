@@ -1,13 +1,15 @@
 %% Calculate latency to different aspects of learned CR %%
 
-& Written by Kayla Fernando (7/18/22)
+% Written by Kayla Fernando (10/26/22)
+
+% NOTE: define the trial type to analyze and run sections separately 
 
 clear all
 close all
 clc
 
-mouse = 'KF21';
-basepath = 'Y:\\All_Staff\home\kayla\Eyelid conditioning\';
+mouse = 'KF52';
+basepath = 'Y:\\home\kayla\Eyelid conditioning\';
 
 prompt = input('Does this mouse have multiple sessions at any point during training? ("1" for yes, "0" for no) ');
 switch prompt
@@ -86,70 +88,28 @@ elseif numel(unique(rig)) > 1
     trialType = cspaired_all_cell;
 end
 
+% Define windows
 if numel(unique(rig)) == 1
     if strcmp(rig,'black') == 1
         win = [139 140 141 142]; % determined through imageSubtraction.m
-        cramp = mean(trialType(:,win),2) - mean(trialType(:,1:66),2);
-        for k = 1:length(cramp)
-            if cramp(k) > 0.1 % 10 percent of normalized eyelid position throughout the trial
-                keep_trials{k} = trialType(k,:); % keep the trials that satisfy criterion
-            end
-        end
-        keep_trials = keep_trials(~cellfun('isempty',keep_trials));
-        keep_trials = vertcat(keep_trials{:});
-        keep_cramp = mean(keep_trials(:,win),2) - mean(keep_trials(:,1:66),2); % keep the CRamp values that satisfy criterion
     elseif strcmp(rig,'blue') == 1 
         win = [47 48 49 50]; % determined through imageSubtraction.m
-        cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2);
-        for k = 1:length(cramp)
-            if cramp(k) > 0.1 % 10 percent of normalized eyelid position throughout the trial
-                keep_trials{k} = trialType(k,:); % keep the trials that satisfy criterion
-            end
-        end
-        keep_trials = keep_trials(~cellfun('isempty',keep_trials));
-        keep_trials = vertcat(keep_trials{:});
-        keep_cramp = mean(keep_trials(:,win),2) - mean(keep_trials(:,1:10),2); % keep the CRamp values that satisfy criterion
-    end 
+    end
 elseif numel(unique(rig)) > 1
     keep_trials = cell(1,length(files));
     for k = 1:length(files)
         if strcmp(rig{k},'black') == 1
             win{k} = [139 140 141 142];
-            trialTypeTemp = trialType{k};
-            cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:66),2); 
-            keep_trials_temp = keep_trials{k};
-            for ii = 1:length(cramp{k})
-                cramp_temp = cramp{k};
-                if cramp_temp(ii) > 0.1 % 10 percent of normalized eyelid position throughout the trial
-                    keep_trials_temp{ii} = trialTypeTemp(ii,:); % keep the trials that satisfy criterion
-                    keep_trials{k} = keep_trials_temp(~cellfun('isempty',keep_trials_temp));
-                    keep_trials{k} = vertcat(keep_trials_temp{:}); 
-                end
-            end
-        elseif strcmp(rig{k},'blue') == 1
+         elseif strcmp(rig{k},'blue') == 1
             win{k} = [47 48 49 50];
-            trialTypeTemp = trialType{k};
-            cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:10),2); 
-            keep_trials_temp = keep_trials{k};
-            for ii = 1:length(cramp{k})
-                cramp_temp = cramp{k};
-                if cramp_temp(ii) > 0.1 % 10 percent of normalized eyelid position throughout the trial
-                    keep_trials_temp{ii} = trialTypeTemp(ii,:); % keep the trials that satisfy criterion
-                    keep_trials{k} = keep_trials_temp(~cellfun('isempty',keep_trials_temp));
-                    keep_trials{k} = vertcat(keep_trials_temp{:});
-                end
-            end 
-        end  
-    end
-    keep_cramp = cell(1,length(files));
-    for k = 1:length(files)
-        keep_trials_temp = keep_trials{k};
-        if strcmp(rig{k},'black') == 1
-            keep_cramp{k} = mean(keep_trials_temp(:,win{k}),2) - mean(keep_trials_temp(:,1:66),2);
-        elseif strcmp(rig{k},'blue') == 1
-            keep_cramp{k} = mean(keep_trials_temp(:,win{k}),2) - mean(keep_trials_temp(:,1:10),2);
         end
     end
+end
+
+% Use only successful CS-US trials
+[keep_cramp,keep_trials] = sortTrials(rig,win,trialType,files);
+if iscell(keep_cramp) == 1
+    keep_cramp = cell2mat(keep_cramp');
 end
 
 %% Latency to CR onset (defined as 5 percent rise time)
@@ -159,7 +119,7 @@ if numel(unique(rig)) == 1
     if strcmp(rig,'black') == 1
         baseline_five_percent = round(mean(keep_trials(:,1:66),2)+abs_five_percent,2); % add this absolute value to the baseline value in each trial
         for k = 1:size(keep_trials,1)
-            keep_trials_temp = keep_trials(k,68:129); % window between CS onset and US onset
+            keep_trials_temp = keep_trials(k,68:151); % window between CS onset and US onset
             idx{k} = find(round(keep_trials_temp,2) == baseline_five_percent(k),1,'last'); % find the last index where the eyelid position equals baseline_five_percent (closest to the US onset)
             if isempty(idx{k}) % if you can't get an exact match
                 increment = 0.01;
@@ -171,12 +131,12 @@ if numel(unique(rig)) == 1
                     end
                 end
             end
-            latencies{k} = idx{k}*0.3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 0.3 ms/frame
+            latencies{k} = idx{k}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 3 ms/frame
         end
     elseif strcmp(rig,'blue') == 1 
         baseline_five_percent = round(mean(keep_trials(:,1:10),2)+abs_five_percent,2); % add this absolute value to the baseline value in each trial
         for k = 1:size(keep_trials,1)
-            keep_trials_temp = keep_trials(k,24:38); % window between CS onset and US onset
+            keep_trials_temp = keep_trials(k,24:51); % window between CS onset and US onset
             idx{k} = find(round(keep_trials_temp,2) == baseline_five_percent(k),1,'last'); % find the last index where the eyelid position equals baseline_five_percent (closest to the US onset)
             if isempty(idx{k}) % if you can't get an exact match
                 increment = 0.01;
@@ -188,12 +148,12 @@ if numel(unique(rig)) == 1
                     end
                 end
             end
-            latencies{k} = idx{k}*0.8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 0.8 ms/frame
+            latencies{k} = idx{k}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 8 ms/frame
         end
     end
     latencies = vertcat(latencies{:}); % latencies b/w CS onset and CR onset in ms
 elseif numel(unique(rig)) > 1
-    abs_five_percent = cellfun(@abs_five_percent,keep_cramp,'UniformOutput',false); % an absolute value
+    abs_five_percent = cellfun(@absFivePercent,keep_cramp,'UniformOutput',false); % an absolute value
     for k = 1:length(files)
         keep_trials_temp = keep_trials{k};
         if strcmp(rig{k},'black') == 1
@@ -217,7 +177,7 @@ elseif numel(unique(rig)) > 1
         if strcmp(rig{k},'black') == 1
             baseline_five_percent_temp = baseline_five_percent{k};
             keep_trials_temp = keep_trials{k};
-            keep_trials_window = keep_trials_temp(:,68:129);
+            keep_trials_window = keep_trials_temp(:,68:143);
             for ii = 1:length(baseline_five_percent_temp)
                 idx{k}{ii} = find(round(keep_trials_window(ii,:),2) == baseline_five_percent_temp(ii),1,'last');  
                 if isempty(idx{k}{ii})
@@ -230,12 +190,12 @@ elseif numel(unique(rig)) > 1
                         end
                     end
                 end
-                latencies{k}{ii} = idx{k}{ii}*0.3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 0.3 ms/frame
+                latencies{k}{ii} = idx{k}{ii}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 3 ms/frame
             end
         elseif strcmp(rig{k},'blue') == 1
             baseline_five_percent_temp = baseline_five_percent{k};
             keep_trials_temp = keep_trials{k};
-            keep_trials_window = keep_trials_temp(:,24:38);
+            keep_trials_window = keep_trials_temp(:,24:51);
             for ii = 1:length(baseline_five_percent_temp)
                 idx{k}{ii} = find(round(keep_trials_window(ii,:),2) == baseline_five_percent_temp(ii),1,'last'); 
                 if isempty(idx{k}{ii})
@@ -248,7 +208,7 @@ elseif numel(unique(rig)) > 1
                         end
                     end
                 end
-                latencies{k}{ii} = idx{k}{ii}*0.8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 0.8 ms/frame
+                latencies{k}{ii} = idx{k}{ii}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR begins. 8 ms/frame
             end
         end  
     end
@@ -267,13 +227,13 @@ if numel(unique(rig)) == 1
         for k = 1:size(keep_trials,1)
             keep_trials_temp = keep_trials(k,68:151); % entire CS window
             idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
-            latencies{k} = idx{k}*0.3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 0.3 ms/frame
+            latencies{k} = idx{k}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
         end
     elseif strcmp(rig,'blue') == 1 
         for k = 1:size(keep_trials,1)
             keep_trials_temp = keep_trials(k,24:53); % entire CS window
             idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
-            latencies{k} = idx{k}*0.8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 0.8 ms/frame
+            latencies{k} = idx{k}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
         end
     end
     latencies = vertcat(latencies{:}); % latencies b/w CS onset and CR peak in ms
@@ -292,15 +252,15 @@ elseif numel(unique(rig)) > 1
             keep_trials_window = keep_trials_temp(:,68:151);
             for ii = 1:length(keep_cramp_temp)
                 idx{k}{ii} = find(keep_trials_window(ii,:) == max(keep_trials_temp(ii)),1,'first');  
-                latencies{k}{ii} = idx{k}{ii}*0.3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 0.3 ms/frame
+                latencies{k}{ii} = idx{k}{ii}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
             end
         elseif strcmp(rig{k},'blue') == 1
             keep_cramp_temp = keep_cramp{k};
             keep_trials_temp = keep_trials{k};
-            keep_trials_window = keep_trials_temp(:,24:38);
+            keep_trials_window = keep_trials_temp(:,24:53);
             for ii = 1:length(keep_cramp_temp)
                 idx{k}{ii} = find(keep_trials_window(ii,:) == max(keep_trials_temp(ii)),1,'first'); 
-                latencies{k}{ii} = idx{k}{ii}*0.8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 0.8 ms/frame
+                latencies{k}{ii} = idx{k}{ii}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
             end
         end  
     end
@@ -311,6 +271,13 @@ elseif numel(unique(rig)) > 1
 end
 
 sort_latencies = sort(latencies);
+
+%% Plotting latencies over time
+
+meanFilterFunction = @(block_struct) mean(block_struct.data);
+m = blockproc(latencies,[100 1],meanFilterFunction);
+subplot(2,1,1); plot(m); ylim([0 15]);
+subplot(2,1,2); scatter(1:length(m),m,'Marker','.'); ylim([0 15]);
 
 %% CDF histograms 
 
