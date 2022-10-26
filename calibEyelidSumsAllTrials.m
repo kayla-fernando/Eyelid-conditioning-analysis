@@ -141,7 +141,7 @@ if numel(unique(rig)) == 1
         cramp2 = cramp>0.1;
         blockSums = blockproc(cramp2, blockSize2, sumFunction);
         for k = 1:length(files)
-            blockSize2 = blockSize{k};
+            blockSizeTemp = blockSize{k};
             CRprobs = blockSums./blockSize2(1);
         end
 elseif numel(unique(rig)) > 1
@@ -170,12 +170,12 @@ elseif numel(unique(rig)) > 1
 end
 
 % Plot binned eyelid traces as heatmap and binned CRprobs across all trials
-[h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSize,CRamps,CRprobs);
-
+[h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRamps,CRprobs);
+    
 % Calculating binned CRamps across all trials using only successful CS-US trials 
 [keep_cramp] = sortTrials(rig,win,trialType,files);
 if iscell(keep_cramp) == 1
-        keep_cramp = cell2mat(keep_cramp');
+    keep_cramp = cell2mat(keep_cramp');
 end
 
 % Block process the array to replace every element in the 100 element-wide block by the mean of the values in the block
