@@ -2,6 +2,10 @@
 
 % Written by Kayla Fernando (7/8/22)
 
+% NOTE: Plotting the average eyelid traces for each trial type only
+% uses data from s01, so days with multiple sessions won't be plotted
+% properly. Analysis with multiple sessions works fine.
+
 clear all
 close all
 clc
