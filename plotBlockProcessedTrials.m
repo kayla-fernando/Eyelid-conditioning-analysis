@@ -1,4 +1,4 @@
-function [h,hf1,hf2] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRamps,CRprobs)
+function [h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRamps,CRprobs)
 
 % Written by Kayla Fernando (7/10/22)
 
@@ -48,19 +48,10 @@ if numel(unique(rig)) == 1
     % 220427: adjust renderer parameters for cdfs to export as .eps vector files
     set(gcf,'renderer','Painters')
     print -depsc -tiff -r300 -painters test.eps
-
-    % Plot binned CRamp learning curves
-    figure;
-    hf1 = plot(CRamps);
-    title([mouse ' CRamp across all trials']);
-    xlabel(['Trial block ( ' num2str(blockSizeTemp(1)) ' trials each)']);
-    ylabel('FEC');
-    xlim([0 size(blockAveragedDownSignal,1)]); ylim([0 1]);
-    set(gca,'ytick',0:0.1:1);
-
+    
     % Plot binned CRprob learning curves
     figure;
-    hf2 = plot(CRprobs);
+    hf1 = plot(CRprobs);
     title([mouse ' CRprob across all trials']);
     xlabel(['Trial block ( ' num2str(blockSizeTemp(1)) ' trials each)']);
     ylabel('Probability');
@@ -120,18 +111,9 @@ elseif numel(unique(rig)) > 1
     set(gcf,'renderer','Painters')
     print -depsc -tiff -r300 -painters test.eps
 
-    % Plot binned CRamp learning curves
-    figure;
-    hf1 = plot(CRamps);
-    title([mouse ' CRamp across all trials']);
-    xlabel(['Trial block ( ' num2str(blockSizeTemp(1)) ' trials each)']);
-    ylabel('FEC');
-    xlim([0 size(blockAveragedDownSignal,1)]); ylim([0 1]);
-    set(gca,'ytick',0:0.1:1);
-
     % Plot binned CRprob learning curves
     figure;
-    hf2 = plot(CRprobs);
+    hf1 = plot(CRprobs);
     title([mouse ' CRprob across all trials']);
     xlabel(['Trial block ( ' num2str(blockSizeTemp(1)) ' trials each)']);   
     ylabel('Probability');
