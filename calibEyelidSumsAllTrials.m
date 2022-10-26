@@ -6,7 +6,7 @@ clear all
 close all
 clc
 
-mouse = 'KF49'; 
+mouse = 'KF52'; 
 basepath = 'Y:\\home\kayla\Eyelid conditioning\';
 
 prompt = input('Does this mouse have multiple sessions at any point during training? ("1" for yes, "0" for no) ');
@@ -142,7 +142,7 @@ if numel(unique(rig)) == 1
         blockSums = blockproc(cramp2, blockSize2, sumFunction);
         for k = 1:length(files)
             blockSizeTemp = blockSize{k};
-            CRprobs = blockSums./blockSize2(1);
+            CRprobs = blockSums./blockSizeTemp(1);
         end
 elseif numel(unique(rig)) > 1
     for k = 1:length(files)
@@ -164,8 +164,8 @@ elseif numel(unique(rig)) > 1
             cramp2 = cramp>0.1;
             blockSums = blockproc(cramp2, blockSize2, sumFunction);
             for k = 1:length(files)
-                blockSize2 = blockSize{k};
-                CRprobs = blockSums./blockSize2(1);
+                blockSizeTemp = blockSize{k};
+                CRprobs = blockSums./blockSizeTemp(1);
             end
 end
 
