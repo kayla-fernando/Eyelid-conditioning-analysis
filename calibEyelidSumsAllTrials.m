@@ -255,7 +255,7 @@ blockSize3 = [50 1];
     
     % Plot binned CRamp learning curves
     figure;
-    h2 = plot(blockAveragedDownAmps);
+    hf2 = plot(blockAveragedDownAmps);
     title([mouse ' CRamp across all trials']);
     xlabel(['Trial block (' num2str(blockSize3(1)) ' trials each)']);
     ylabel('FEC');
