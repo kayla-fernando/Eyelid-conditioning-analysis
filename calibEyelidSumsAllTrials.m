@@ -1,13 +1,13 @@
 %% Binned CRprobs and CRamps across all trials %%
 
-% Written by Kayla Fernando (7/10/22)
+% Written by Kayla Fernando (10/26/22)
 
 clear all
 close all
 clc
 
-mouse = 'KF18'; 
-basepath = 'Y:\\All_Staff\home\kayla\Eyelid conditioning\';
+mouse = 'KF49'; 
+basepath = 'Y:\\home\kayla\Eyelid conditioning\';
 
 prompt = input('Does this mouse have multiple sessions at any point during training? ("1" for yes, "0" for no) ');
 switch prompt
@@ -58,7 +58,7 @@ switch prompt
                 [cspaired_all_cell,usonly_all_cell,cscatch_all_cell,files,directory,trials,date] = getAllEyelidTraces_mSessions(mouse,basepath);
                 % Generate a list of which rig was used for each day for appropriate plotting parameters
                 for k = 1:length(files)
-                    r = input(['"1" for BLACK rig or "0" for BLUE rig on ' num2str(date{k}) ': '],"s")
+                    r = input(['"1" for BLACK rig or "0" for BLUE rig on ' num2str(date{k}) ': '],"s");
                     if strcmp(r,'1') == 1
                         rig{k} = 'black'; 
                     elseif strcmp(r,'0') == 1 
@@ -122,10 +122,11 @@ end
         bins = size(blockAveragedDownSignal{1},1)
         frames = unique(frames)
     end
-       
+    
     % Also define the summation function for use by blocproc()
     sumFunction = @(block_struct) sum(block_struct.data);
-    
+  
+% Calculate binned CRprobs across all trials using all CS-US trials
 if numel(unique(rig)) == 1
     % Binned CRamp
         if strcmp(rig,'black') == 1
@@ -135,14 +136,14 @@ if numel(unique(rig)) == 1
             win = [47 48 49 50];
             cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2); 
         end
-        blockSize2 = [100, 1];
+        blockSize2 = [100 1];
         CRamps = blockproc(cramp, blockSize2, meanFilterFunction);
     % Binned CRprob
         cramp2 = cramp>0.1;
         blockSums = blockproc(cramp2, blockSize2, sumFunction);
         for k = 1:length(files)
-            blockSizeTemp = blockSize{k};
-            CRprobs = blockSums./blockSizeTemp(1);
+            blockSize3 = blockSize{k};
+            CRprobs = blockSums./blockSize3(1);
         end
 elseif numel(unique(rig)) > 1
     for k = 1:length(files)
@@ -158,15 +159,105 @@ elseif numel(unique(rig)) > 1
             end
     end
             cramp = vertcat(cramp{:});
-            blockSize2 = [100, 1];
+            blockSize2 = [100 1];
             CRamps = blockproc(cramp, blockSize2, meanFilterFunction);
         % Binned CRprob
             cramp2 = cramp>0.1;
             blockSums = blockproc(cramp2, blockSize2, sumFunction);
             for k = 1:length(files)
-                blockSizeTemp = blockSize{k};
-                CRprobs = blockSums./blockSizeTemp(1);
+                blockSize3 = blockSize{k};
+                CRprobs = blockSums./blockSize3(1);
             end
 end
 
-[h,hf1,hf2] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRamps,CRprobs);
+% Plot binned eyelid traces as heatmap and binned CRprobs across all trials
+[h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSize3,CRamps,CRprobs);
+
+% Calculating binned CRamps across all trials using only successful CS-US trials 
+if numel(unique(rig)) == 1
+    if strcmp(rig,'black') == 1
+        win = [139 140 141 142]; % determined through imageSubtraction.m
+        cramp = mean(trialType(:,win),2) - mean(trialType(:,1:66),2);
+        for k = 1:length(cramp)
+            if cramp(k) > 0.1 % 10 percent of normalized eyelid position throughout the trial
+                keep_trials{k} = trialType(k,:); % keep the trials that satisfy criterion
+            end
+        end
+        keep_trials = keep_trials(~cellfun('isempty',keep_trials));
+        keep_trials = vertcat(keep_trials{:});
+        keep_cramp = mean(keep_trials(:,win),2) - mean(keep_trials(:,1:66),2); % keep the CRamp values that satisfy criterion
+    elseif strcmp(rig,'blue') == 1 
+        win = [47 48 49 50]; % determined through imageSubtraction.m
+        cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2);
+        for k = 1:length(cramp)
+            if cramp(k) > 0.1 % 10 percent of normalized eyelid position throughout the trial
+                keep_trials{k} = trialType(k,:); % keep the trials that satisfy criterion
+            end
+        end
+        keep_trials = keep_trials(~cellfun('isempty',keep_trials));
+        keep_trials = vertcat(keep_trials{:});
+        keep_cramp = mean(keep_trials(:,win),2) - mean(keep_trials(:,1:10),2); % keep the CRamp values that satisfy criterion
+    end 
+elseif numel(unique(rig)) > 1
+    keep_trials = cell(1,length(files));
+    for k = 1:length(files)
+        if strcmp(rig{k},'black') == 1
+            win{k} = [139 140 141 142];
+            trialTypeTemp = trialType{k};
+            cramp = {};
+            cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:66),2); 
+            keep_trials_temp = keep_trials{k};
+            for ii = 1:length(cramp{k})
+                cramp_temp = cramp{k};
+                if cramp_temp(ii) > 0.1 % 10 percent of normalized eyelid position throughout the trial
+                    keep_trials_temp{ii} = trialTypeTemp(ii,:); % keep the trials that satisfy criterion
+                    keep_trials{k} = keep_trials_temp(~cellfun('isempty',keep_trials_temp));
+                    keep_trials{k} = vertcat(keep_trials_temp{:}); 
+                end
+            end
+        elseif strcmp(rig{k},'blue') == 1
+            win{k} = [47 48 49 50];
+            trialTypeTemp = trialType{k};
+            cramp = {};
+            cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:10),2); 
+            keep_trials_temp = keep_trials{k};
+            for ii = 1:length(cramp{k})
+                cramp_temp = cramp{k};
+                if cramp_temp(ii) > 0.1 % 10 percent of normalized eyelid position throughout the trial
+                    keep_trials_temp{ii} = trialTypeTemp(ii,:); % keep the trials that satisfy criterion
+                    keep_trials{k} = keep_trials_temp(~cellfun('isempty',keep_trials_temp));
+                    keep_trials{k} = vertcat(keep_trials_temp{:});
+                end
+            end 
+        end  
+    end
+    keep_cramp = cell(1,length(files));
+    for k = 1:length(files)
+        keep_trials_temp = keep_trials{k};
+        if strcmp(rig{k},'black') == 1
+            keep_cramp{k} = mean(keep_trials_temp(:,win{k}),2) - mean(keep_trials_temp(:,1:66),2);
+        elseif strcmp(rig{k},'blue') == 1
+            keep_cramp{k} = mean(keep_trials_temp(:,win{k}),2) - mean(keep_trials_temp(:,1:10),2);
+        end
+    end
+end
+
+% Define the block parameters (m rows by n cols block). We will average every m trials
+blockSize3 = [50 1];
+
+% Block process the array to replace every element in the 100 element-wide block by the mean of the values in the block
+    % First, define the averaging function for use by blockproc()
+    meanFilterFunctionAmps = @(block_struct) mean(block_struct.data);
+    if iscell(keep_cramp) == 1
+        keep_cramp = cell2mat(keep_cramp');
+    end
+    blockAveragedDownAmps = blockproc(keep_cramp, blockSize3, meanFilterFunctionAmps);
+    
+    % Plot binned CRamp learning curves
+    figure;
+    h2 = plot(blockAveragedDownAmps);
+    title([mouse ' CRamp across all trials']);
+    xlabel(['Trial block (' num2str(blockSize3(1)) ' trials each)']);
+    ylabel('FEC');
+    xlim([0 size(blockAveragedDownAmps,1)]); ylim([0 1]);
+    set(gca,'ytick',0:0.1:1);
