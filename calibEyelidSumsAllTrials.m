@@ -141,8 +141,8 @@ if numel(unique(rig)) == 1
         cramp2 = cramp>0.1;
         blockSums = blockproc(cramp2, blockSize2, sumFunction);
         for k = 1:length(files)
-            blockSize3 = blockSize{k};
-            CRprobs = blockSums./blockSize3(1);
+            blockSize2 = blockSize{k};
+            CRprobs = blockSums./blockSize2(1);
         end
 elseif numel(unique(rig)) > 1
     for k = 1:length(files)
@@ -164,13 +164,13 @@ elseif numel(unique(rig)) > 1
             cramp2 = cramp>0.1;
             blockSums = blockproc(cramp2, blockSize2, sumFunction);
             for k = 1:length(files)
-                blockSize3 = blockSize{k};
-                CRprobs = blockSums./blockSize3(1);
+                blockSize2 = blockSize{k};
+                CRprobs = blockSums./blockSize2(1);
             end
 end
 
 % Plot binned eyelid traces as heatmap and binned CRprobs across all trials
-[h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSize3,CRamps,CRprobs);
+[h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSize,CRamps,CRprobs);
 
 % Calculating binned CRamps across all trials using only successful CS-US trials 
 [keep_cramp] = sortTrials(rig,win,trialType,files);
@@ -184,11 +184,12 @@ end
     % Define the block parameters (m rows by n cols block). We will average every m trials
     blockSize3 = [50 1];
     blockAveragedDownAmps = blockproc(keep_cramp, blockSize3, meanFilterFunctionAmps);
-    % Plot binned CRamp learning curves
-    figure;
-    hf2 = plot(blockAveragedDownAmps);
-    title([mouse ' CRamp across all trials']);
-    xlabel(['Trial block (' num2str(blockSize3(1)) ' trials each)']);
-    ylabel('FEC');
-    xlim([0 size(blockAveragedDownAmps,1)]); ylim([0 1]);
-    set(gca,'ytick',0:0.1:1);
+
+% Plot binned CRamp learning curves
+figure;
+hf2 = plot(blockAveragedDownAmps);
+title([mouse ' CRamp across all trials']);
+xlabel(['Trial block (' num2str(blockSize3(1)) ' trials each)']);
+ylabel('FEC');
+xlim([0 size(blockAveragedDownAmps,1)]); ylim([0 1]);
+set(gca,'ytick',0:0.1:1);
