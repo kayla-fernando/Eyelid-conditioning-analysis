@@ -1,4 +1,7 @@
 function varargout = sortTrials(rig,win,trialType,files)
+% Sorts out CS-US trials where a CR occurred
+
+% Written by Kayla Fernando (10/26/22)
 
 if numel(unique(rig)) == 1
     if strcmp(rig,'black') == 1
