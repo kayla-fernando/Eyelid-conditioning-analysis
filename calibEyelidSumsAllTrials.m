@@ -183,6 +183,9 @@ end
     meanFilterFunctionAmps = @(block_struct) mean(block_struct.data);
     % Define the block parameters (m rows by n cols block). We will average every m trials
     blockSize3 = [50 1];
+    if numel(keep_cramp) < 50
+        blockSize3 = [round(numel(keep_cramp),1,"significant")/5 1];
+    end
     blockAveragedDownAmps = blockproc(keep_cramp, blockSize3, meanFilterFunctionAmps);
 
 % Plot binned CRamp learning curves
