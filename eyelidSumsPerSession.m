@@ -1,4 +1,4 @@
-%% eyelidSumsPerSession TEST %%
+%% eyelidSumsPerSession %%
 % Plotting average eyelid traces for CS-US trials, US-only trials, and CS-catch trials over all sessions
 
 % Written by Kayla Fernando (10/27/22)
