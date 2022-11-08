@@ -1,4 +1,4 @@
-%% eyelidSumsLatencyCR TEST %%
+%% eyelidSumsLatencyCR %%
 % Calculate latency to different aspects of learned CR
 
 % Written by Kayla Fernando (10/27/22)
