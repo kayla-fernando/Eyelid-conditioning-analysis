@@ -1,4 +1,4 @@
-%% eyelidSumsAllTrials TEST %%
+%% eyelidSumsAllTrials %%
 % Binned CRprobs and CRamps across all trials
 
 % Written by Kayla Fernando (10/27/22)
