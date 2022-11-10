@@ -117,7 +117,7 @@ end
 % Plot binned CRamp learning curves
 figure;
 hf2 = plot(blockAveragedDownAmps);
-title([mouse ' CRamp successes only']);
+title([mouse ' CRamp using only successful CS-US trials']);
 xlabel(['Trial block (' num2str(blockSize3(1)) ' trials each)']);
 ylabel('FEC');
 xlim([0 size(blockAveragedDownAmps,1)]); ylim([0 1]);
