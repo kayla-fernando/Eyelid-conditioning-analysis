@@ -46,7 +46,7 @@ if iscell(keep_cramp) == 1
     keep_cramp = cell2mat(keep_cramp');
 end
 
-%% Latency to CR onset (defined as 5 percent rise time)
+%% Latency to CR onset (defined as 5 percent of CRamp)
 
 if numel(unique(rig)) == 1
     abs_five_percent = keep_cramp*0.05; % an absolute value
