@@ -129,7 +129,7 @@ elseif numel(unique(rig)) > 1
             end
         elseif strcmp(rig{k},'blue') == 1
             baseline_ten_percent_temp = baseline_ten_percent{k};
-            keep_trials_temp = keep_trials{k}; %%i think there needs to be another counter here: plot(flip(keep_trials_temp(end,24:51),2))
+            keep_trials_temp = keep_trials{k};
             keep_trials_window = flip(keep_trials_temp(:,24:51),2);
             for ii = 1:size(baseline_ten_percent_temp,1)
                 idx{k}{ii} = find(round(keep_trials_window(ii,:),2) == baseline_ten_percent_temp(ii),1); 
