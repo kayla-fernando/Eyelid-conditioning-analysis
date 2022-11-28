@@ -1,7 +1,7 @@
 %% eyelidSumsLatencyCR %%
 % Calculate latency to different aspects of learned CR
 
-% Written by Kayla Fernando (11/24/22)
+% Written by Kayla Fernando (11/28/22)
 
 % NOTE: define the trial type to analyze and run sections separately
 
@@ -9,13 +9,13 @@ clear all
 close all
 clc
 
-mouse = 'KF39'; 
+mouse = 'KF52'; 
 basepath = 'Y:\\home\kayla\Eyelid conditioning\';
 
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess
 
-% Define trial type to analyze
+% Define trial type to analyze (CS-US for onset, CS catch for peak)
 if numel(unique(rig)) == 1
     trialType = cspaired_all;
 elseif numel(unique(rig)) > 1
@@ -46,7 +46,7 @@ end
 % Truncate these cell arrays in later sections
 [keep_cramp,keep_trials] = sortTrials(rig,win,trialType,files);
 
-%% Latency to CR onset (defined as 10 percent of CRamp)
+%% Latency to CR onset (defined as 10 percent of CRamp) (using CS-US trials)
 
 % If same rig throughout training
 if numel(unique(rig)) == 1
@@ -89,7 +89,7 @@ if numel(unique(rig)) == 1
         end
     end
     latencies = vertcat(latencies{:}); % latencies b/w CS onset and CR onset in ms
-    latencies = latencies(latencies >= 100); % real CRs have at least 100 ms latency from looking at eyelid traces, get rid of false positives
+    latencies = latencies(latencies >= 100); % real CRs are at least 100 ms long from looking at eyelid traces, get rid of false positives
 
 % If different rigs throughout training
 elseif numel(unique(rig)) > 1
@@ -220,62 +220,114 @@ elseif numel(unique(rig)) > 1
         end
         latencies = horzcat(t{1:length(files)})';
     end
-    latencies = latencies(latencies >= 100); % real CRs are at least 100 ms long from looking at eyelid traces, get rid of false positives
+    latencies = latencies(latencies >= 100); % real CRs have at least 100 ms latency from looking at eyelid traces, get rid of false positives
 end
 
 sort_latencies = sort(latencies);
 
-%% Latency to CR peak
+%% Latency to CR peak (using CS-catch trials)
 
-% if numel(unique(rig)) == 1
-%     if strcmp(rig,'black') == 1
-%         for k = 1:size(keep_trials,1)
-%             keep_trials_temp = keep_trials(k,68:end);
-%             idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
-%             latencies{k} = idx{k}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
-%         end
-%     elseif strcmp(rig,'blue') == 1 
-%         for k = 1:size(keep_trials,1)
-%             keep_trials_temp = keep_trials(k,24:end);
-%             idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
-%             latencies{k} = idx{k}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
-%         end
-%     end
-%     latencies = vertcat(latencies{:}); % latencies b/w CS onset and CR peak in ms
-% elseif numel(unique(rig)) > 1
-%     idx = cell(1,length(files));
-%     latencies = cell(1,length(files));
-%     for k = 1:length(files)
-%         keep_cramp_temp = keep_cramp{k};
-%         idx{k} = cell(1,length(keep_cramp));
-%         latencies{k} = cell(1,length(keep_cramp));
-%     end
-%     for k = 1:length(files)
-%         if strcmp(rig{k},'black') == 1
-%             keep_cramp_temp = keep_cramp{k};
-%             keep_trials_temp = keep_trials{k};
-%             keep_trials_window = keep_trials_temp(:,68:end);
-%             for ii = 1:length(keep_cramp_temp)
-%                 idx{k}{ii} = find(keep_trials_window(ii,:) == max(keep_trials_temp(ii)),1,'first');  
-%                 latencies{k}{ii} = idx{k}{ii}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
-%             end
-%         elseif strcmp(rig{k},'blue') == 1
-%             keep_cramp_temp = keep_cramp{k};
-%             keep_trials_temp = keep_trials{k};
-%             keep_trials_window = keep_trials_temp(:,24:end);
-%             for ii = 1:length(keep_cramp_temp)
-%                 idx{k}{ii} = find(keep_trials_window(ii,:) == max(keep_trials_temp(ii)),1,'first'); 
-%                 latencies{k}{ii} = idx{k}{ii}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
-%             end
-%         end  
-%     end
-%     for k = 1:length(files)
-%         t{k} = cell2mat(latencies{k});
-%     end
-%     latencies = horzcat(t{1:length(files)})';
-% end
-% 
-% sort_latencies = sort(latencies);
+% If same rig throughout training
+if numel(unique(rig)) == 1
+    if strcmp(rig,'black') == 1
+        for k = 1:size(keep_trials,1)
+            keep_trials_temp = keep_trials(k,68:end);
+            idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
+            latencies{k} = idx{k}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
+        end
+    elseif strcmp(rig,'blue') == 1 
+        for k = 1:size(keep_trials,1)
+            keep_trials_temp = keep_trials(k,24:end);
+            idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
+            latencies{k} = idx{k}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
+        end
+    end
+    latencies = vertcat(latencies{:}); % latencies b/w CS onset and CR peak in ms
+    latencies = latencies(latencies >= 100 & latencies <= 350); % exclude detection of double blinks/grooming
+
+% If different rigs throughout training
+elseif numel(unique(rig)) > 1
+    % If there are sessions (cells) without any trials to keep
+    % (i.e., are empty)
+    if any(cellfun(@isempty,keep_trials)) == 1
+        empty = cellfun(@isempty,keep_trials);
+        ses = find(empty == 0); % find the sessions that do have trials to keep
+        keep_trials = keep_trials(~cellfun('isempty',keep_trials)); % truncate the list
+        keep_cramp = keep_cramp(~cellfun('isempty',keep_cramp)); % truncate the list
+        % Initialize idx and latencies cell arrays
+        idx = cell(1,length(keep_trials));
+        latencies = cell(1,length(keep_trials));
+        for ii = 1:length(keep_trials);
+            keep_trials_temp = keep_trials{ii};
+            idx{ii} = cell(1,size(keep_trials_temp,1)); % truncate the list, keep relevant indices
+            latencies{ii} = cell(1,size(keep_trials_temp,1)); % truncate the list, keep relevant indices
+            rig{ii} = rig{ses(ii)}; % keep relevant indices
+        end
+        for n = length(keep_trials)+1:length(files)
+            rig{n} = [];   
+        end
+        rig = rig(~cellfun('isempty',rig)); % truncate the list
+    % If all sessions (cells) have trials to keep (i.e., no empty cells)      
+    else
+        % Initialize idx and latencies cell arrays
+        idx = cell(1,length(files));
+        latencies = cell(1,length(files));
+        for k = 1:length(files)
+            keep_cramp_temp = keep_cramp{k};
+            idx{k} = cell(1,length(keep_cramp));
+            latencies{k} = cell(1,length(keep_cramp));
+        end
+    end
+    
+    % If we had to get rid of empty cells
+    if numel(files) ~= numel(keep_trials)
+        k = 1:length(keep_trials); % use this session index
+    % If we didn't have to get rid of empty cells    
+    else
+        k = 1:length(files); % iterate through the entire list
+    end
+
+    % For whichever index you use
+    for k = k(1):k(end)
+        if strcmp(rig{k},'black') == 1
+            keep_trials_temp = keep_trials{k};
+            for ii = 1:size(keep_trials_temp,1)
+                keep_trials_temp2 = keep_trials_temp(ii,:);             
+                keep_trials_window = keep_trials_temp2(1,68:end);
+                idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first');  
+                latencies{k}{ii} = idx{k}{ii}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
+            end
+        elseif strcmp(rig{k},'blue') == 1
+            keep_trials_temp = keep_trials{k};
+            for ii = 1:size(keep_trials_temp,1)
+                keep_trials_temp2 = keep_trials_temp(ii,:);                
+                keep_trials_window = keep_trials_temp2(1,24:end);
+                idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first'); 
+                latencies{k}{ii} = idx{k}{ii}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
+            end
+        end
+    end
+
+    % If there were empty cells
+    if numel(files) ~= numel(keep_trials)
+        k = 1:length(keep_trials);
+        for k = 1:length(k)
+            t{k} = cell2mat(latencies{k});
+        end
+        latencies = horzcat(t{1:length(t)});
+    % If no empty cells
+    else
+        k = 1:length(files);
+        for k = 1:length(k)
+            t{k} = cell2mat(latencies{k});
+        end
+        latencies = horzcat(t{1:length(files)})';
+        
+    end
+    latencies = latencies(latencies >= 100 & latencies <= 350); % exclude detection of double blinks/grooming
+end
+
+sort_latencies = sort(latencies);
 
 %% Plotting latencies over time
 
