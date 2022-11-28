@@ -332,9 +332,9 @@ sort_latencies = sort(latencies);
 %% Plotting latencies over time
 
 meanFilterFunction = @(block_struct) mean(block_struct.data);
-m = blockproc(latencies,[100 1],meanFilterFunction);
-subplot(2,1,1); plot(m); ylim([0 15]);
-subplot(2,1,2); scatter(1:length(m),m,'Marker','.'); ylim([0 15]);
+m = blockproc(latencies,[20 1],meanFilterFunction);
+subplot(2,1,1); plot(m);
+subplot(2,1,2); scatter(1:length(m),m,'Marker','.');
 
 %% CDF histograms 
 
