@@ -56,11 +56,11 @@ if numel(unique(rig)) == 1
         baseline_ten_percent = round(mean(keep_trials(:,1:66),2)+abs_ten_percent,2); % add this absolute value to the baseline value in each trial
         for k = 1:size(keep_trials,1)
             keep_trials_temp = flip(keep_trials(k,68:143)); % window between CS onset and US onset, flip the signal
-            idx{k} = find(round(keep_trials_temp,2) == baseline_ten_percent(k)+0.01,1); % find the first index where the eyelid position equals baseline_five_percent (flipping ignores noisy baseline)
+            idx{k} = find(round(keep_trials_temp,2) == baseline_ten_percent(k)+0.01,1); % find the first index where the eyelid position equals baseline_ten_percent (flipping ignores noisy baseline)
             if isempty(idx{k}) % if you can't get an exact match
                 increment = 0.01;
                 while isempty(idx{k}) 
-                    idx{k} = find(round(keep_trials_temp,2) == baseline_ten_percent(k)+increment,1); % increase baseline_five_percent by a small increment and try again
+                    idx{k} = find(round(keep_trials_temp,2) == baseline_ten_percent(k)+increment,1); % increase baseline_ten_percent by a small increment and try again
                     increment = increment + 0.01;
                     if increment > 1
                         break
@@ -74,11 +74,11 @@ if numel(unique(rig)) == 1
         baseline_ten_percent = round(mean(keep_trials(:,1:10),2)+abs_ten_percent,2); % add this absolute value to the baseline value in each trial
         for k = 1:size(keep_trials,1)
             keep_trials_temp = flip(keep_trials(k,24:51)); % window between CS onset and US onset, flip the signal
-            idx{k} = find(round(keep_trials_temp,2) == baseline_ten_percent(k),1); % find the first index where the eyelid position equals baseline_five_percent (flipping ignores noisy baseline)
+            idx{k} = find(round(keep_trials_temp,2) == baseline_ten_percent(k),1); % find the first index where the eyelid position equals baseline_ten_percent (flipping ignores noisy baseline)
             if isempty(idx{k}) % if you can't get an exact match
                 increment = 0.01;
                 while isempty(idx{k}) 
-                    idx{k} = find(round(keep_trials_temp,2) == baseline_ten_percent(k)+increment,1); % increase baseline_five_percent by a small increment and try again
+                    idx{k} = find(round(keep_trials_temp,2) == baseline_ten_percent(k)+increment,1); % increase baseline_ten_percent by a small increment and try again
                     increment = increment + 0.01;
                     if increment > 1
                         break
