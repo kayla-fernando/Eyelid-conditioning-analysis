@@ -322,8 +322,8 @@ elseif numel(unique(rig)) > 1
             t{k} = cell2mat(latencies{k});
         end
         latencies = horzcat(t{1:length(files)})';
-        
     end
+    latencies = latencies';
     latencies = latencies(latencies >= 100 & latencies <= 350); % exclude detection of double blinks/grooming
 end
 
