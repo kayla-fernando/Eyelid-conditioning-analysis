@@ -1,7 +1,7 @@
 function varargout = sortTrials(rig,win,trialType,files)
 % Sorts out trials (which type is defined by the user) where a CR occurred
 
-% Written by Kayla Fernando (11/24/22)
+% Written by Kayla Fernando (11/28/22)
 
 % If same rig throughout training
 if numel(unique(rig)) == 1
