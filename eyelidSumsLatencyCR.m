@@ -94,7 +94,7 @@ if numel(unique(rig)) == 1
 % If different rigs throughout training
 elseif numel(unique(rig)) > 1
     abs_ten_percent = cellfun(@absTenPercent,keep_cramp,'UniformOutput',false); % an absolute value
-    % If there are sessions (cells) that do not have any trials to keep
+    % If there are sessions (cells) without any trials to keep
     % (i.e., are empty)
     if any(cellfun(@isempty,keep_trials)) == 1
         empty = cellfun(@isempty,keep_trials);
@@ -129,7 +129,7 @@ elseif numel(unique(rig)) > 1
         end
     end
     
-    % If there are sessions (cells) that do not have any trials to keep
+    % If there are sessions (cells) without any trials to keep
     % (i.e., are empty)
     if any(cellfun(@isempty,baseline_ten_percent)) == 1
         baseline_ten_percent = baseline_ten_percent(~cellfun('isempty',baseline_ten_percent)); % truncate the list
