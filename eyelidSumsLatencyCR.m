@@ -355,7 +355,7 @@ hold on;
 % WT 
 WT_onset_cell = convert2cell(filename{2});
 [h2,forHist_WT_onset] = cdfEventHistCells(WT_onset_cell,forHist,'latency','ms');
-set(h2, 'EdgeColor', 'k');
+set(h2, 'EdgeColor', 'b');
 forHist_WT_onset_WX = reshape(forHist_WT_onset,[],1);
 
 xlim([0 220]);
