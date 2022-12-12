@@ -96,7 +96,7 @@ elseif numel(unique(rig)) > 1
 end
 
 % Plot binned eyelid traces as heatmap and binned CRprobs across all trials
-[h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRamps,CRprobs);
+[h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRprobs);
     
 % Calculating binned CRamps across all trials using only successful CS-US trials 
 [keep_cramp] = sortTrials(rig,win,trialType,files);
