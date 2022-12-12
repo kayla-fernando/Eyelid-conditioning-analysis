@@ -1,4 +1,4 @@
-function [h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRamps,CRprobs)
+function [h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRprobs)
 
 % Written by Kayla Fernando (7/10/22)
 
