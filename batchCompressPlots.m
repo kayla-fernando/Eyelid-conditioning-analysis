@@ -4,9 +4,13 @@ close all
 clear all
 clc
 
-mouse = {'KF34'; 'KF35'; 'KF36'; 'KF37'; 'KF38'; 'KF39'; 'KF40'; 'KF41'; 'KF42'; 'KF43'; 'KF45'};
-rig = {'black'; 'blue'; 'black'; 'blue'; 'black'; 'blue'; 'black'; 'blue'; 'black'; 'blue'; 'blue'};
-date = '220917';
+mouse = {'mouse'; 'mouse';...
+         'mouse'; 'mouse';...
+         'mouse'; 'mouse'};
+rig = {'black'; 'blue';... 
+       'black'; 'blue'; 
+       'black'; 'blue'};
+date = '220101';
 
 % Make batch compressed videos
 for n = 1:length(mouse);
