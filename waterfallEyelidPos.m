@@ -8,8 +8,8 @@ clear all
 close all
 clc
 
-mouse = 'KF08'; 
-basepath = 'Y:\All_Staff\home\kayla\Eyelid conditioning\';
+mouse = 'mouse'; 
+basepath = 'Y:\\';
 
 [cspaired_all_cell,usonly_all_cell,cscatch_all_cell,cspaired_all,usonly_all,cscatch_all,files,directory,trials,date] = getAllEyelidTraces(mouse,basepath);
 
