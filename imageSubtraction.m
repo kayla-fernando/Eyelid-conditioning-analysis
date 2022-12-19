@@ -8,8 +8,8 @@ clc
 
 %% Load data
 
-mouse = 'KF10';
-date = '220607';
+mouse = 'mouse';
+date = '220101';
 basepath = 'Y:\\All_Staff\home\kayla\Eyelid conditioning\'; 
 basepath1 = 'Y:\\All_Staff\home\kayla\Eyelid conditioning analysis\'; 
 basepath2 = 'Y:\\All_Staff\home\kayla\Image Processing';
