@@ -9,8 +9,8 @@ clear all
 close all
 clc
 
-mouse = 'KF52'; 
-basepath = 'Y:\\home\kayla\Eyelid conditioning\';
+mouse = 'mouse'; 
+basepath = 'Y:\\';
 
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess
