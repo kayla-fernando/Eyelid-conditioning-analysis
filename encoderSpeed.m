@@ -6,8 +6,8 @@ clear all
 close all
 clc
 
-mouse = 'KF72'; 
-basepath = 'Y:\\home\kayla\Eyelid conditioning\';
+mouse = 'mouse'; 
+basepath = 'Y:\\';
 cyclesPerRev = 32; % cycles per revolution for US Digital H5-32-NE-S encoder
 d = 14; % diameter of running wheel in cm
 sections = 16; % split the wheel into n number of sections
