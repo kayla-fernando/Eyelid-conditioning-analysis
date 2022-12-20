@@ -42,14 +42,19 @@ hold off
 %% 2a. For plotting average speed of a session and CRprob for that same session
 
 mouse = 'mouse'; 
-date = {'220101', '220102',...
-        '220103', '220104'}; 
+basepath = 'Y:\\';
+% date = {'220101', '220102',...
+%         '220103', '220104'}; 
 
+% Preprocess eyelid conditioning data, output promptData.txt
+eyelidPreprocess
+
+% Modified from makePlots.m
 data = [];    
 for n = 1:length(date)
     load(['Y:\\home\kayla\Eyelid conditioning\' mouse '\' date{n} '\trialdata.mat']);
-    %[h1,h2,CRprob] = makePlots(trials,"black",[139 140 141 142]);
-    [h1,h2,CRprob] = makePlots(trials,"blue",[47 48 49 50]);
+    [h1,h2,CRprob] = makePlots(trials,"black",[139 140 141 142]);
+    %[h1,h2,CRprob] = makePlots(trials,"blue",[47 48 49 50]);
     data(n) = CRprob;
 end
 close all
