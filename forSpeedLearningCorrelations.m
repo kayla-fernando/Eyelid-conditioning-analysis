@@ -62,8 +62,8 @@ data = data';
 
 %% 2b. For plotting average speed of a session and CRamp for that same session
 
-mouse = 'KF72'; 
-basepath = 'Y:\\home\kayla\Eyelid conditioning\';
+mouse = 'mouse'; 
+basepath = 'Y:\\';
 
 % Preprocess eyelid conditioning data, output promptData.txt
     eyelidPreprocess
