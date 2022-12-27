@@ -153,5 +153,5 @@ data = data';
 % Add speeds per session in second column of variable "data"
 % label y-axes accordingly
 yyaxis left; plot(data(:,1)); ylim([0 1]); ylabel('CRamp (using only successful CS-US trials)'); 
-yyaxis right; plot(data(:,2)); ylabel('Average speed (m/s)')
-title(mouse); xlabel('Session')
+yyaxis right; plot(data(:,2)); ylabel('Average speed (m/s)');
+title(mouse); xlabel('Session');
