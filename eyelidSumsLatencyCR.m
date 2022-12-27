@@ -335,37 +335,3 @@ meanFilterFunction = @(block_struct) mean(block_struct.data);
 m = blockproc(latencies,[20 1],meanFilterFunction);
 subplot(2,1,1); plot(m);
 subplot(2,1,2); scatter(1:length(m),m,'Marker','.');
-
-%% CDF histograms 
-
-% Load workspace
-load('ASTN2 latencies all trials.mat');
-
-filename = {KO_onset, WT_onset};
-forHist = [];
-        
-% KO 
-KO_onset_cell = convert2cell(filename{1});
-[h1,forHist_KO_onset] = cdfEventHistCells(KO_onset_cell,forHist,'latency','ms');
-set(h1, 'EdgeColor', 'r');
-forHist_KO_onset_WX = reshape(forHist_KO_onset,[],1);
-
-hold on;
-
-% WT 
-WT_onset_cell = convert2cell(filename{2});
-[h2,forHist_WT_onset] = cdfEventHistCells(WT_onset_cell,forHist,'latency','ms');
-set(h2, 'EdgeColor', 'b');
-forHist_WT_onset_WX = reshape(forHist_WT_onset,[],1);
-
-xlim([0 220]);
-ylim([0 1]);
-hold off
-
-% % Two-sample Komolgorov-Smirnov test 
-% % In command window:
-% [x,p,ks2stat] = kstest2(forHist_KO_onset_KS,forHist_WT_onset_KS)
-
-% % Wilcoxon rank-sum test
-% % In command window:
-% [p,h,stats] = ranksum(forHist_KO_onset_WX,forHist_WT_onset_WX)
