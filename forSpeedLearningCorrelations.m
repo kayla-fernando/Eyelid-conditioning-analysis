@@ -8,15 +8,15 @@
 
 % Written by Kayla Fernando (12/20/22)
 
-load('ASTN2 avg speed learning corrs.mat')
-data = ASTN2_WT_avgspeed_CRamps;
+load('workspace.mat')
+data = workspace_variable;
 
 colorScheme = [1 0 0]; % slower mice are red, faster mice are blue
 
 for k = 1:size(data,2)
     dataTemp = data(:,k);
     map(k,1:3) = colorScheme;
-    plot(dataTemp(2:20,1),'LineWidth',1.25,'Color',colorScheme);
+    plot(dataTemp(2:21,1),'LineWidth',1.25,'Color',colorScheme);
     ylim([0 1])
         colorScheme(1) = colorScheme(1) - 0.1;
         colorScheme(3) = colorScheme(3) + 0.1;
@@ -24,15 +24,12 @@ for k = 1:size(data,2)
 end
 
 colormap(map);
-c = colorbar('TickLabels',{'',mat2str(data(end,1)),...
-                              mat2str(data(end,2)),...
-                              mat2str(data(end,3)),...
-                              mat2str(data(end,4)),...
-                              mat2str(data(end,5)),...
-                              mat2str(data(end,6)),...
-                              mat2str(data(end,7)),...
-                              mat2str(data(end,8)),...
-                              mat2str(data(end,9))});
+c = colorbar('TickLabels',{mat2str(data(end,1)),...
+                           mat2str(data(end,2)),...
+                           mat2str(data(end,3)),...
+                           mat2str(data(end,4)),...
+                           mat2str(data(end,5)),...
+                           mat2str(data(end,6))});
 c.Label.String = 'Mice ranked from slowest (red) to fastest (blue)';
 xlabel('Trial block (50 trials each)'); ylabel('CRamp (using only successful CS-US trials)');
 set(gcf,'Position',[500 500 1000 500]);
@@ -41,14 +38,11 @@ hold off
 
 %% 2a. For plotting average speed of a session and CRprob for that same session
 
-mouse = 'KF62'; 
-basepath = 'Y:\\home\kayla\Eyelid conditioning\';
+mouse = 'mouse'; 
+basepath = 'Y:\\';
 % date = {'221027', '221028',...
 %         '221031', '221101',...
-%         '221102', '221103',...
-%         '221104', '221107',...
-%         '221108', '221109',...
-%         '221110'}; 
+%         '221102', '221103'}; 
 
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess    
@@ -66,8 +60,8 @@ data = data';
 
 %% 2b. For plotting average speed of a session and CRamp for that same session
 
-mouse = 'KF72'; 
-basepath = 'Y:\\home\kayla\Eyelid conditioning\';
+mouse = 'mouse'; 
+basepath = 'Y:\\';
 
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess
