@@ -155,3 +155,22 @@ data = data';
 yyaxis left; plot(data(:,1)); ylim([0 1]); ylabel('CRamp (using only successful CS-US trials)'); 
 yyaxis right; plot(data(:,2)); ylabel('Average speed (m/s)');
 title(mouse); xlabel('Session');
+
+%% 4. For plotting changes in speeds against changes in learning
+
+% Add speeds per session in second column of variable "data"
+% label variables accordingly
+deltaSpeed = diff(data(:,2));
+deltaCRamp = diff(data(:,1));
+s = scatter(deltaSpeed,deltaCRamp,'filled'); 
+s.MarkerFaceColor = map(9,:);
+xline(0,'--k'); yline(0,'--k'); 
+u = refline(1,0);
+u.Color = 'k';
+p = polyfit(deltaSpeed,deltaCRamp,1);
+f = refline(p(1),p(2));
+f.Color = [0.5 0.5 0.5];
+title('KOs'); xlabel('\Delta in average speed per session (m/s)'); ylabel('\Delta CR amplitude (normalized)');
+hold on
+
+data = [];
