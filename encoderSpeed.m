@@ -34,4 +34,5 @@ for k = 1:length(files)
     speed(k) = distance(k)/time(k); % average speed per session in m/s
 end
 
+speed = speed';
 avgspeed = mean(speed) % average speed over all sessions in m/s
