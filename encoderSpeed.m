@@ -1,4 +1,4 @@
-%% Calculate speed based on encoder parameters
+%% Calculate speed based on encoder parameters %%
 
 % Written by Kayla Fernando (12/14/22)
 
