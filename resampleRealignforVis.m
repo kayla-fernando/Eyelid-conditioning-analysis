@@ -1,4 +1,4 @@
-%% Upsampling blue rig eyelid traces to match black rig eyelid traces and aligning signals to US onset for visualization
+% Upsampling blue rig eyelid traces to match black rig eyelid traces and aligning signals to US onset for visualization
 
 % Written by Kayla Fernando (2/23/23)
 
@@ -9,17 +9,17 @@ clc
 % Load workspace (average eyelid trace for naive, chance, or learned
 % condition for each animal in a given experimental condition. 1 row = 1
 % animal
-load('ISRIB Saline learning epochs.mat');
-ISRIB_learned(ISRIB_learned == 0) = NaN;
+load('workspace.mat');
+group_learned(group_learned == 0) = NaN;
 
-for n = 1:size(ISRIB_learned,1)
-    if any(isnan(ISRIB_learned(n,:))) == 1
-        dataTemp = ISRIB_learned(n,1:200);
+for n = 1:size(group_learned,1)
+    if any(isnan(group_learned(n,:))) == 1
+        dataTemp = group_learned(n,1:200);
         dataTempResample = resample(dataTemp,5,3);
         plot(horzcat(zeros(1,60),dataTempResample)); 
         hold on
     else
-        plot(ISRIB_learned(n,:))
+        plot(group_learned(n,:))
         hold on
     end
 end
@@ -33,19 +33,5 @@ else
 end
 
 xlim([1 334]); ylim([0 1]);
-xlabel('Frame (realigned)'); ylabel('FEC');
+xlabel('Frame (realigned)'); ylabel('FEC (resampled)');
 hold off
-
-%%
-
-%run eyelidSumsAllTrials for KF52 since it was on different rigs
-
-for k = 1:length(keep_trials)
-    temp = keep_trials{k};
-    for n = 1:size(temp,1)
-        [row,col] = find(cspaired_all_cell{k} == temp(n,:));
-        t = cspaired_all_cell{k};
-        t(row(1),:)
-        pause
-    end
-end
