@@ -6,7 +6,7 @@
 % Notes:
 %   - timescale of eyelid traces may differ if a mouse was on different rigs throughout training
 %   - originally tried to make this a function, but Matlab's Code Analyzer reports an error with the "mean" function used to calculate naive/chance/learned average eyelid trace 
-%   - kept as a separate script, run eyelidSumsAllTrials for one animal to have the necessary inputs
+%   - kept as a separate script, run eyelidSumsAllTrials for one animal first to have the necessary inputs
 
 % If same rig throughout training
 if numel(unique(rig)) == 1
