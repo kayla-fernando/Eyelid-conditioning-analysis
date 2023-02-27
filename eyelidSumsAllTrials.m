@@ -122,3 +122,7 @@ xlabel(['Trial block (' num2str(blockSize3(1)) ' trials each)']);
 ylabel('FEC');
 xlim([0 size(blockAveragedDownAmps,1)]); ylim([0 1]);
 set(gca,'ytick',0:0.1:1);
+
+% Plot representative eyelid traces for the naive, chance, and learned conditions
+hf3 = figure;
+eyelidSumsLearningEpochsForVis
