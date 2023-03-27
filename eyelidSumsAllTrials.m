@@ -99,9 +99,16 @@ end
 [h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRprobs);
     
 % Calculating binned CRamps across all trials using only successful CS-US trials 
-[keep_cramp] = sortTrials(rig,win,trialType,files);
+if numel(unique(rig)) == 1
+    [keep_cramp,keep_trials,keep_trials_idx] = sortTrials(rig,win,trialType,files);
+elseif numel(unique(rig)) > 1
+    [keep_cramp,keep_trials] = sortTrials(rig,win,trialType,files);
+end
 if iscell(keep_cramp) == 1
     keep_cramp = cell2mat(keep_cramp');
+     for n = 1:length(keep_cramp)
+        keep_trials_idx(n) = find(cramp == keep_cramp(n));
+    end
 end
 
 % Block process the array to replace every element in the 100 element-wide block by the mean of the values in the block
