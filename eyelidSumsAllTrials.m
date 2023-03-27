@@ -9,6 +9,7 @@ clc
 
 mouse = 'mouse'; 
 basepath = 'Y:\\';
+controlGroup = 0;
 
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess
@@ -113,7 +114,12 @@ end
 
 % Plot detected CRs in trial space as CRamps
 figure;
-hf2 = scatter(keep_trials_idx,keep_cramp,'.');
+if controlGroup == 1
+    c = 'b';
+else
+    c = 'r';
+end
+hf2 = scatter(keep_trials_idx,keep_cramp,'.',c);
 title([mouse ' CR amplitudes of detected CRs in sequential CS-US order']);
 xlim([0 2000]); xlabel('CS-US trial #');
 ylim([0 1]); ylabel('Fraction of eye closed');
