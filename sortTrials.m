@@ -14,6 +14,8 @@ if numel(unique(rig)) == 1
                 keep_trials{k} = trialType(k,:); % keep the trials that satisfy criterion
             end
         end
+        keep_trials_trialspace = keep_trials;
+        keep_trials_idx = find(~cellfun('isempty',keep_trials));
         keep_trials = keep_trials(~cellfun('isempty',keep_trials));
         keep_trials = vertcat(keep_trials{:});
         keep_cramp = mean(keep_trials(:,win),2) - mean(keep_trials(:,1:66),2); % keep the CRamp values that satisfy criterion
@@ -26,6 +28,8 @@ if numel(unique(rig)) == 1
                 keep_trials{k} = trialType(k,:); % keep the trials that satisfy criterion
             end
         end
+        keep_trials_trialspace = keep_trials;
+        keep_trials_idx = find(~cellfun('isempty',keep_trials));
         keep_trials = keep_trials(~cellfun('isempty',keep_trials));
         keep_trials = vertcat(keep_trials{:});
         keep_cramp = mean(keep_trials(:,win),2) - mean(keep_trials(:,1:10),2); % keep the CRamp values that satisfy criterion
@@ -36,13 +40,13 @@ elseif numel(unique(rig)) > 1
     
     % Keep the trials
     keep_trials = cell(1,length(files));
+    cramp = {};
     
     for k = 1:length(files)
         % Fill this cell if on the black rig on this session
         if strcmp(rig{k},'black') == 1
             win{k} = [139 140 141 142];
             trialTypeTemp = trialType{k};
-            cramp = {};
             cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:66),2); 
             keep_trials_temp = keep_trials{k};
             for ii = 1:length(cramp{k})
@@ -57,7 +61,6 @@ elseif numel(unique(rig)) > 1
         elseif strcmp(rig{k},'blue') == 1
             win{k} = [47 48 49 50];
             trialTypeTemp = trialType{k};
-            cramp = {};
             cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:10),2); 
             keep_trials_temp = keep_trials{k};
             for ii = 1:length(cramp{k})
@@ -104,9 +107,13 @@ end
 
 if nargout == 1
     varargout{1} = keep_cramp;
-elseif nargout > 1
+elseif nargout == 2
     varargout{1} = keep_cramp;
     varargout{2} = keep_trials;
+else
+    varargout{1} = keep_cramp;
+    varargout{2} = keep_trials;
+    varargout{3} = keep_trials_idx;
 end
 
 end
