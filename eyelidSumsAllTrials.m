@@ -111,24 +111,31 @@ if iscell(keep_cramp) == 1
     end
 end
 
-% Block process the array to replace every element in the 100 element-wide block by the mean of the values in the block
-    % First, define the averaging function for use by blockproc()
-    meanFilterFunctionAmps = @(block_struct) mean(block_struct.data);
-    % Define the block parameters (m rows by n cols block). We will average every m trials
-    blockSize3 = [50 1];
-    if numel(keep_cramp) < 50
-        blockSize3 = [round(numel(keep_cramp),1,"significant")/5 1];
-    end
-    blockAveragedDownAmps = blockproc(keep_cramp, blockSize3, meanFilterFunctionAmps);
-
-% Plot binned CRamp learning curves
+% Plot detected CRs in trial space as CRamps
 figure;
-hf2 = plot(blockAveragedDownAmps);
-title([mouse ' CRamp using only successful CS-US trials']);
-xlabel(['Trial block (' num2str(blockSize3(1)) ' trials each)']);
-ylabel('FEC');
-xlim([0 size(blockAveragedDownAmps,1)]); ylim([0 1]);
-set(gca,'ytick',0:0.1:1);
+hf2 = scatter(keep_trials_idx,keep_cramp,'.');
+title([mouse ' CR amplitudes of detected CRs in sequential CS-US order']);
+xlim([0 2000]); xlabel('CS-US trial #');
+ylim([0 1]); ylabel('Fraction of eye closed');
+
+% % Block process the array to replace every element in the 100 element-wide block by the mean of the values in the block
+%     % First, define the averaging function for use by blockproc()
+%     meanFilterFunctionAmps = @(block_struct) mean(block_struct.data);
+%     % Define the block parameters (m rows by n cols block). We will average every m trials
+%     blockSize3 = [50 1];
+%     if numel(keep_cramp) < 50
+%         blockSize3 = [round(numel(keep_cramp),1,"significant")/5 1];
+%     end
+%     blockAveragedDownAmps = blockproc(keep_cramp, blockSize3, meanFilterFunctionAmps);
+
+% % Plot binned CRamp learning curves
+% figure;
+% hf2 = plot(blockAveragedDownAmps);
+% title([mouse ' CRamp using only successful CS-US trials']);
+% xlabel(['Trial block (' num2str(blockSize3(1)) ' trials each)']);
+% ylabel('FEC');
+% xlim([0 size(blockAveragedDownAmps,1)]); ylim([0 1]);
+% set(gca,'ytick',0:0.1:1);
 
 % Plot representative eyelid traces for the naive, chance, and learned conditions
 hf3 = figure;
