@@ -52,7 +52,7 @@ end
     % Also define the summation function for use by blocproc()
     sumFunction = @(block_struct) sum(block_struct.data);
   
-% Calculate binned CRprobs across all trials using all CS-US trials
+% Calculate and plot binned CRprobs across all trials using all CS-US trials
 if numel(unique(rig)) == 1
     % Binned CRamp
         if strcmp(rig,'black') == 1
@@ -95,11 +95,9 @@ elseif numel(unique(rig)) > 1
                 CRprobs = blockSums./blockSizeTemp(1);
             end
 end
-
-% Plot binned eyelid traces as heatmap and binned CRprobs across all trials
 [h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRprobs);
      
-% Calculate binned CRamps across all trials using only successful CS-US trials 
+% Calculate and plot binned CRamps across all trials using only successful CS-US trials while preserving temporal structure of training
 if numel(unique(rig)) == 1
     [keep_cramp,keep_trials,keep_trials_idx] = sortTrials(rig,win,trialType,files);
 elseif numel(unique(rig)) > 1
@@ -111,40 +109,10 @@ if iscell(keep_cramp) == 1
         keep_trials_idx(n) = find(cramp == keep_cramp(n));
     end
 end
-blockCRamps = blockSequentialCRamps(20,keep_trials_idx,keep_cramp);
-
-% Plot binned CRamps using only successful CS-US trials while preserving temporal structure of training
-figure;
-if controlGroup == 1
-    c = 'b'; 
-else
-    c = 'r';
-end
-hf2 = scatter(keep_trials_idx,keep_cramp,'.',c);
-title([mouse ' CR amplitudes of detected CRs in sequential CS-US order']);
-xlim([0 2000]); xlabel('CS-US trial #');
-ylim([0 1]); ylabel('Fraction of eye closed');
+if controlGroup == 1 
+    c = 'b'; else c = 'r'; end
+[blockCRamps,hf2,hf3] = plotBlockProcessedSeqCRamps(20,keep_trials_idx,keep_cramp,mouse,blockSizeTemp,c);
 
 % Plot representative eyelid traces for the naive, chance, and learned conditions
-hf3 = figure;
+hf4 = figure;
 eyelidSumsLearningEpochsForVis
-
-% Commented these sections out - while they block process only successful CRamps, the temporal structure is not preserved 
-% % Block process the array to replace every element in the 50 element-wide block by the mean of the values in the block
-%     % First, define the averaging function for use by blockproc()
-%     meanFilterFunctionAmps = @(block_struct) mean(block_struct.data);
-%     % Define the block parameters (m rows by n cols block). We will average every m trials
-%     blockSize3 = [50 1];
-%     if numel(keep_cramp) < 50
-%         blockSize3 = [round(numel(keep_cramp),1,"significant")/5 1];
-%     end
-%     blockAveragedDownAmps = blockproc(keep_cramp, blockSize3, meanFilterFunctionAmps);
-%
-% % Plot binned CRamp learning curves
-% figure;
-% hf2 = plot(blockAveragedDownAmps);
-% title([mouse ' CRamp using only successful CS-US trials']);
-% xlabel(['Trial block (' num2str(blockSize3(1)) ' trials each)']);
-% ylabel('FEC');
-% xlim([0 size(blockAveragedDownAmps,1)]); ylim([0 1]);
-% set(gca,'ytick',0:0.1:1);
