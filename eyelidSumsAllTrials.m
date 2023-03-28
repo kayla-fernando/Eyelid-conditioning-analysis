@@ -9,7 +9,7 @@ clc
 
 mouse = 'mouse'; 
 basepath = 'Y:\\';
-controlGroup = 0;
+controlGroup = 1;
 
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess
@@ -98,8 +98,8 @@ end
 
 % Plot binned eyelid traces as heatmap and binned CRprobs across all trials
 [h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRprobs);
-    
-% Calculating binned CRamps across all trials using only successful CS-US trials 
+     
+% Calculate binned CRamps across all trials using only successful CS-US trials 
 if numel(unique(rig)) == 1
     [keep_cramp,keep_trials,keep_trials_idx] = sortTrials(rig,win,trialType,files);
 elseif numel(unique(rig)) > 1
@@ -111,11 +111,12 @@ if iscell(keep_cramp) == 1
         keep_trials_idx(n) = find(cramp == keep_cramp(n));
     end
 end
+binCRamp = binSequentialCRamps(20,keep_trials_idx,keep_cramp);
 
 % Plot detected CRs in trial space as CRamps
 figure;
 if controlGroup == 1
-    c = 'b';
+    c = 'b'; 
 else
     c = 'r';
 end
@@ -124,7 +125,7 @@ title([mouse ' CR amplitudes of detected CRs in sequential CS-US order']);
 xlim([0 2000]); xlabel('CS-US trial #');
 ylim([0 1]); ylabel('Fraction of eye closed');
 
-% % Block process the array to replace every element in the 100 element-wide block by the mean of the values in the block
+% % Block process the array to replace every element in the 50 element-wide block by the mean of the values in the block
 %     % First, define the averaging function for use by blockproc()
 %     meanFilterFunctionAmps = @(block_struct) mean(block_struct.data);
 %     % Define the block parameters (m rows by n cols block). We will average every m trials
