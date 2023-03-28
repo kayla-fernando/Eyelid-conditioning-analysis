@@ -1,4 +1,4 @@
-function blockCRamps = blockSequentialCRamps(numBlocks,keep_trials_idx,keep_cramp)
+function varargout = plotBlockProcessedSeqCRamps(numBlocks,keep_trials_idx,keep_cramp,mouse,blockSizeTemp,c)
 % Takes successful trials and their corresponding CR amplitudes, bins them 
 % into user-defined number of trial blocks while preserving the temporal 
 % structure of training, then finds the average within that trial block. 
@@ -10,8 +10,11 @@ function blockCRamps = blockSequentialCRamps(numBlocks,keep_trials_idx,keep_cram
 %       keep_cramp = CRamp values from those successful trials
 % OUTPUT:
 %       blockCRamps = average CRamp at each trial block, 
-%       calculated using only CRamps from successful trials within a trial 
-%       block, preserving temporal structure of training
+%           calculated using only CRamps from successful trials within a trial 
+%           block, preserving temporal structure of training
+%       hf2 = plot binned CRamps using only successful CS-US trials while 
+%           preserving temporal structure of training
+%       hf3 = plot each detected CRamp as it occurs throughout training
 
 % Written by Kayla Fernando 3/28/23
 
@@ -40,4 +43,26 @@ if n == numBlocks-1
     end
 end
 
+% Plot binned CRamps using only successful CS-US trials while preserving temporal structure of training
+figure;
+hf2 = plot(blockCRamps);
+title([mouse ' CRamps of detected CRs in sequential order']);
+xlim([0 20]); xlabel(['Trial block (' num2str(blockSizeTemp(1)) ' trials each)']);
+ylim([0 1]); ylabel('Fraction of eye closed');
+
+% Plot each detected CRamp as it occurs throughout training
+figure;
+hf3 = scatter(keep_trials_idx,keep_cramp,'.',c);
+title([mouse ' all CRamps of detected CRs in sequential order']);
+xlim([0 2000]); xlabel('Trial #');
+ylim([0 1]); ylabel('Fraction of eye closed');
+
+if nargout == 1
+    varargout{1} = blockCRamps;
+elseif nargout > 1
+    varargout{1} = blockCRamps;
+    varargout{2} = hf2;
+    varargout{3} = hf3;
+end
+    
 end
