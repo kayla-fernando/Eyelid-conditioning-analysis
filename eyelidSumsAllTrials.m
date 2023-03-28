@@ -113,7 +113,7 @@ if iscell(keep_cramp) == 1
 end
 blockCRamps = blockSequentialCRamps(20,keep_trials_idx,keep_cramp);
 
-% Plot detected CRs in trial space as CRamps
+% Plot binned CRamps using only successful CS-US trials while preserving temporal structure of training
 figure;
 if controlGroup == 1
     c = 'b'; 
@@ -125,6 +125,11 @@ title([mouse ' CR amplitudes of detected CRs in sequential CS-US order']);
 xlim([0 2000]); xlabel('CS-US trial #');
 ylim([0 1]); ylabel('Fraction of eye closed');
 
+% Plot representative eyelid traces for the naive, chance, and learned conditions
+hf3 = figure;
+eyelidSumsLearningEpochsForVis
+
+% Commented these sections out - while they block process only successful CRamps, the temporal structure is not preserved 
 % % Block process the array to replace every element in the 50 element-wide block by the mean of the values in the block
 %     % First, define the averaging function for use by blockproc()
 %     meanFilterFunctionAmps = @(block_struct) mean(block_struct.data);
@@ -134,7 +139,7 @@ ylim([0 1]); ylabel('Fraction of eye closed');
 %         blockSize3 = [round(numel(keep_cramp),1,"significant")/5 1];
 %     end
 %     blockAveragedDownAmps = blockproc(keep_cramp, blockSize3, meanFilterFunctionAmps);
-
+%
 % % Plot binned CRamp learning curves
 % figure;
 % hf2 = plot(blockAveragedDownAmps);
@@ -143,7 +148,3 @@ ylim([0 1]); ylabel('Fraction of eye closed');
 % ylabel('FEC');
 % xlim([0 size(blockAveragedDownAmps,1)]); ylim([0 1]);
 % set(gca,'ytick',0:0.1:1);
-
-% Plot representative eyelid traces for the naive, chance, and learned conditions
-hf3 = figure;
-eyelidSumsLearningEpochsForVis
