@@ -1,7 +1,7 @@
 %% eyelidSumsAllTrials %%
 % Binned CRprobs and CRamps across all trials
 
-% Written by Kayla Fernando (10/27/22)
+% Written by Kayla Fernando (3/28/23)
 
 clear all
 close all
