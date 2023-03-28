@@ -111,7 +111,7 @@ if iscell(keep_cramp) == 1
         keep_trials_idx(n) = find(cramp == keep_cramp(n));
     end
 end
-blockCRamp = blockSequentialCRamps(20,keep_trials_idx,keep_cramp);
+blockCRamps = blockSequentialCRamps(20,keep_trials_idx,keep_cramp);
 
 % Plot detected CRs in trial space as CRamps
 figure;
