@@ -16,7 +16,7 @@ function varargout = plotBlockProcessedSeqCRamps(numBlocks,keep_trials_idx,keep_
 %           preserving temporal structure of training
 %       hf3 = plot each detected CRamp as it occurs throughout training
 
-% Written by Kayla Fernando 3/28/23
+% Written by Kayla Fernando (3/28/23)
 
 n = 0; % initialize counter
 
