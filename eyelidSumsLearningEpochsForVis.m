@@ -96,10 +96,11 @@ elseif numel(unique(rig)) > 1
 end
 
 % Plot average eyelid traces for the naive, chance, and learned conditions
-plot(naive); hold on
-plot(chance);
-plot(learned); hold off
-xlabel('Frame'); ylabel('FEC'); ylim([0 1]);
+times = trials{end}.tm(1,:);
+plot(times,naive); hold on
+plot(times,chance);
+plot(times,learned); hold off
+xlabel('Time from CS (s)'); ylabel('FEC'); ylim([0 1]);
 legend(['naive (CRprob = ' num2str(CRprobs(naiveBlock)) ')'],...
        ['chance (CRprob = ' num2str(CRprobs(chanceBlock)) ')'],...
        ['learned (CRprob = ' num2str(CRprobs(learnedBlock)) ')']);
