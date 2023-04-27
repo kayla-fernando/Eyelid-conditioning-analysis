@@ -6,7 +6,7 @@ The scripts and functions in this repository are modifications of the original a
 shadedErrorBar.m is a public function available on MATLAB File Exchange that is used in the following script: plotLearningCurves.m
 
 
-Image processing software (FIJI/ImageJ) is requried for imageSubtraction.m
+Image processing software (FIJI/ImageJ) is required for imageSubtraction.m
 
 MIJI or MIJ is a package used to interact with FIJI or ImageJ, respectively, in MATLAB. Available on MATLAB File Exchange
 
