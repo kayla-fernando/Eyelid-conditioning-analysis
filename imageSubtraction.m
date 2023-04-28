@@ -10,14 +10,15 @@ clc
 
 mouse = 'mouse';
 date = '220101';
-basepath = 'Y:\\All_Staff\home\kayla\Eyelid conditioning\'; 
+experiment = 'experiment';
+basepath = ['Y:\\All_Staff\home\kayla\Eyelid conditioning\' experiment '\']; 
 basepath1 = 'Y:\\All_Staff\home\kayla\Eyelid conditioning analysis\'; 
 basepath2 = 'Y:\\All_Staff\home\kayla\Image Processing';
 
 load([basepath mouse '\' date '\trialdata.mat']);
 
 % Range of frames to analyze
-range = [120 160];
+range = [130 160];
 
 %% Use the first 66 frames of a US-only trial as the baseline period
 
@@ -27,12 +28,12 @@ analyze_trial = 1;
 
 if usonlytrials(analyze_trial) < 10
     leadingzeros = sprintf('%02d',0);
-    load([basepath mouse '\' date '\' sprintf('Data_%s_s01_',date) leadingzeros num2str(usonlytrials(analyze_trial)) '.mat']);
+    load([basepath mouse '\' date '\' sprintf('%s_%s_s01_',mouse,date) leadingzeros num2str(usonlytrials(analyze_trial)) '.mat']);
 elseif usonlytrials(analyze_trial) >= 10 && usonlytrials(analyze_trial) <= 99
     leadingzeros = '0';
-    load([basepath mouse '\' date '\' sprintf('Data_%s_s01_',date) leadingzeros num2str(usonlytrials(analyze_trial)) '.mat']);
+    load([basepath mouse '\' date '\' sprintf('%s_%s_s01_',mouse,date) leadingzeros num2str(usonlytrials(analyze_trial)) '.mat']);
 else
-    load([basepath mouse '\' date '\' sprintf('Data_%s_s01_',date) num2str(usonlytrials(analyze_trial)) '.mat']);
+    load([basepath mouse '\' date '\' sprintf('%s_%s_s01_',mouse,date) num2str(usonlytrials(analyze_trial)) '.mat']);
 end
 
 % Make a tempImages folder for baseline.tiff
@@ -51,12 +52,12 @@ javaaddpath(['C:\Program Files\MATLAB\' vers '\java\mij.jar']);
 javaaddpath(['C:\Program Files\MATLAB\' vers '\java\ij.jar']);
 MIJ.start(java.lang.String(basepath2)); % loads macros
 
-% Load the baseline .tiff
-% Plugins > baseline
+% Drag and drop the baseline .tiff into ImageJ
 
 %% Save average projection image in tempImages folder
 
 % Shortcut: CTRL + s
+MIJ.run('baseline')
 MIJ.run('Save')
 
 %% Set a range of putative frames of when the airpuff is delivered
@@ -86,9 +87,9 @@ end
 
 clc
 
-% File > Import > Image Sequence 
-% Image > Lookup Tables > 3-3-2 RGB
-% Image > Stacks > Animation > Animation options (shortcut: "\" key)
+MIJ.run('Image Sequence...')
+MIJ.run('3-3-2 RGB')
+MIJ.run('Start Animation [\]')
 
 %% Close ImageJ
 
