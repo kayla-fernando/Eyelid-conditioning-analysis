@@ -99,9 +99,9 @@ end
      
 % Calculate and plot binned CRamps across all trials using only successful CS-US trials while preserving temporal structure of training
 if numel(unique(rig)) == 1
-    [keep_cramp,keep_trials,keep_trials_idx] = sortTrials(rig,win,trialType,files);
+    [keep_cramp,keep_trials,baseline,fullCR,keep_trials_idx] = sortTrials(rig,win,trialType,files);
 elseif numel(unique(rig)) > 1
-    [keep_cramp,keep_trials] = sortTrials(rig,win,trialType,files);
+    [keep_cramp,keep_trials,baseline,fullCR] = sortTrials(rig,win,trialType,files);
 end
 if iscell(keep_cramp) == 1
     keep_cramp = cell2mat(keep_cramp');
@@ -109,10 +109,13 @@ if iscell(keep_cramp) == 1
         keep_trials_idx(n) = find(cramp == keep_cramp(n));
     end
 end
+if iscell(fullCR) == 1
+    fullCR = cell2mat(fullCR)';
+end
 if controlGroup == 1 
     c = 'b'; else c = 'r'; end
-[blockCRamps,hf2,hf3] = plotBlockProcessedSeqCRamps(20,keep_trials_idx,keep_cramp,mouse,blockSizeTemp,c);
+[blockCRamps,blockFullCRamps,hf2,hf3,hf4,hf5] = plotBlockProcessedSeqCRamps(20,keep_trials_idx,keep_cramp,fullCR,mouse,blockSizeTemp,c);
 
 % Plot representative eyelid traces for the naive, chance, and learned conditions
-hf4 = figure;
+hf6 = figure;
 eyelidSumsLearningEpochsForVis
