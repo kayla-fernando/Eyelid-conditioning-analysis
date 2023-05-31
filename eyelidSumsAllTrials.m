@@ -116,6 +116,6 @@ if controlGroup == 1
     c = 'b'; else c = 'r'; end
 [blockCRamps,blockFullCRamps,hf2,hf3,hf4,hf5] = plotBlockProcessedSeqCRamps(20,keep_trials_idx,keep_cramp,fullCR,mouse,blockSizeTemp,c);
 
-% Plot representative eyelid traces for the naive, chance, and learned conditions
+% Plot representative eyelid traces for the naive, intermediate, and learned conditions
 hf6 = figure;
 eyelidSumsLearningEpochsForVis
