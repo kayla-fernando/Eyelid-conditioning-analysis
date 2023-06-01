@@ -46,7 +46,9 @@ end
 % Truncate these cell arrays in later sections
 [keep_cramp,keep_trials] = sortTrials(rig,win,trialType,files);
 
-%% Latency to CR onset (defined as 10 percent of CRamp) (using CS-US trials)
+%% Latency to CR onset (defined as 10 percent of CRamp)
+% Use CS-US trials for larger sample size
+% CS-catch trials work, too
 
 % If same rig throughout training
 if numel(unique(rig)) == 1
@@ -225,7 +227,9 @@ end
 
 sort_latencies = sort(latencies);
 
-%% Latency to CR peak (using CS-catch trials)
+%% Latency to CR peak
+% Ideally use CS-catch trials
+% Can use CS-US trials for larger sample size, but search window is biased
 
 % If same rig throughout training
 if numel(unique(rig)) == 1
