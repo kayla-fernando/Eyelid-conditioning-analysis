@@ -15,7 +15,7 @@ basepath = 'Y:\\';
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess
 
-% Define trial type to analyze (cspaired_all/cspaired_all_cell for onset, cscatch_all/cscatch_all_cell for peak)
+% Define trial type to analyze (cspaired_all/cspaired_all_cell; cscatch_all/cscatch_all_cell)
 if numel(unique(rig)) == 1
     trialType = cspaired_all;
 elseif numel(unique(rig)) > 1
