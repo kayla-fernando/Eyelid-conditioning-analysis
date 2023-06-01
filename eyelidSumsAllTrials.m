@@ -109,6 +109,9 @@ if iscell(keep_cramp) == 1
         keep_trials_idx(n) = find(cramp == keep_cramp(n));
     end
 end
+if iscell(keep_baseline) == 1
+    keep_baseline = cell2mat(keep_baseline');
+end
 if iscell(fullCR) == 1
     fullCR = cell2mat(fullCR)';
 end
