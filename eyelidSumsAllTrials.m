@@ -117,8 +117,8 @@ if iscell(fullCR) == 1
 end
 if controlGroup == 1 
     c = 'b'; else c = 'r'; end
-[blockCRamps,blockFullCRamps,hf2,hf3,hf4,hf5] = plotBlockProcessedSeqCRamps(20,keep_trials_idx,keep_cramp,fullCR,mouse,blockSizeTemp,c);
+[blockCRamps,blockFullCRamps,blockBaseline,hf2,hf3,hf4,hf5,hf6] = plotBlockProcessedSeqCRamps(20,keep_trials_idx,keep_cramp,keep_baseline,fullCR,mouse,blockSizeTemp,c);
 
 % Plot representative eyelid traces for the naive, intermediate, and learned conditions
-hf6 = figure;
+hf7 = figure;
 eyelidSumsLearningEpochsForVis
