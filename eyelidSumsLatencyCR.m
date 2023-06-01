@@ -91,7 +91,7 @@ if numel(unique(rig)) == 1
         end
     end
     latencies = vertcat(latencies{:}); % latencies b/w CS onset and CR onset in ms
-    latencies = latencies(latencies >= 100); % real CRs are at least 100 ms long from looking at eyelid traces, get rid of false positives
+    latencies = latencies(latencies >= 100); % real CRs begin at least 100 ms post-CS onset from looking at eyelid traces, get rid of false positives
 
 % If different rigs throughout training
 elseif numel(unique(rig)) > 1
