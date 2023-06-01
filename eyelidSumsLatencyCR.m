@@ -231,15 +231,27 @@ sort_latencies = sort(latencies);
 if numel(unique(rig)) == 1
     if strcmp(rig,'black') == 1
         for k = 1:size(keep_trials,1)
-            keep_trials_temp = keep_trials(k,68:end);
-            idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
-            latencies{k} = idx{k}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
+            if logical(size(trialType,1) == size(cscatch_all,1)) == 1
+                keep_trials_temp = keep_trials(k,68:end);
+                idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
+                latencies{k} = idx{k}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
+            elseif logical(size(trialType,1) == size(cspaired_all,1)) == 1
+                keep_trials_temp = keep_trials(k,68:142); % excludes US onset
+                idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
+                latencies{k} = idx{k}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
+            end
         end
     elseif strcmp(rig,'blue') == 1 
         for k = 1:size(keep_trials,1)
-            keep_trials_temp = keep_trials(k,24:end);
-            idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
-            latencies{k} = idx{k}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
+            if logical(size(trialType,1) == size(cscatch_all,1)) == 1
+                keep_trials_temp = keep_trials(k,24:end);
+                idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
+                latencies{k} = idx{k}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
+            elseif logical(size(trialType,1) == size(cspaired_all,1)) == 1
+                keep_trials_temp = keep_trials(k,24:50); % excludes US onset
+                idx{k} = find(keep_trials_temp == max(keep_trials_temp),1,'first'); % find the first index where the eyelid position equals the maximum CR amplitude
+                latencies{k} = idx{k}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
+            end
         end
     end
     latencies = vertcat(latencies{:}); % latencies b/w CS onset and CR peak in ms
@@ -292,18 +304,30 @@ elseif numel(unique(rig)) > 1
         if strcmp(rig{k},'black') == 1
             keep_trials_temp = keep_trials{k};
             for ii = 1:size(keep_trials_temp,1)
-                keep_trials_temp2 = keep_trials_temp(ii,:);             
-                keep_trials_window = keep_trials_temp2(1,68:end);
-                idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first');  
-                latencies{k}{ii} = idx{k}{ii}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
+                keep_trials_temp2 = keep_trials_temp(ii,:);
+                if logical(size(trialType,1) == size(cscatch_all,1)) == 1
+                    keep_trials_window = keep_trials_temp2(1,68:end);
+                    idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first');  
+                    latencies{k}{ii} = idx{k}{ii}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
+                elseif logical(size(trialType,1) == size(cspaired_all,1)) == 1
+                    keep_trials_window = keep_trials_temp2(1,68:142); % exclude US onset
+                    idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first');  
+                    latencies{k}{ii} = idx{k}{ii}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
+                end
             end
         elseif strcmp(rig{k},'blue') == 1
             keep_trials_temp = keep_trials{k};
             for ii = 1:size(keep_trials_temp,1)
-                keep_trials_temp2 = keep_trials_temp(ii,:);                
-                keep_trials_window = keep_trials_temp2(1,24:end);
-                idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first'); 
-                latencies{k}{ii} = idx{k}{ii}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
+                keep_trials_temp2 = keep_trials_temp(ii,:);  
+                if logical(size(trialType,1) == size(cscatch_all,1)) == 1
+                    keep_trials_window = keep_trials_temp2(1,24:end);
+                    idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first'); 
+                    latencies{k}{ii} = idx{k}{ii}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
+                elseif logical(size(trialType,1) == size(cspaired_all,1)) == 1
+                    keep_trials_window = keep_trials_temp2(1,24:50); % exclude US onset
+                    idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first'); 
+                    latencies{k}{ii} = idx{k}{ii}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
+                end
             end
         end
     end
