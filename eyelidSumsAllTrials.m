@@ -99,9 +99,9 @@ end
      
 % Calculate and plot binned CRamps across all trials using only successful CS-US trials while preserving temporal structure of training
 if numel(unique(rig)) == 1
-    [keep_cramp,keep_trials,baseline,fullCR,keep_trials_idx] = sortTrials(rig,win,trialType,files);
+    [keep_cramp,keep_trials,keep_baseline,fullCR,keep_trials_idx] = sortTrials(rig,win,trialType,files);
 elseif numel(unique(rig)) > 1
-    [keep_cramp,keep_trials,baseline,fullCR] = sortTrials(rig,win,trialType,files);
+    [keep_cramp,keep_trials,keep_baseline,fullCR] = sortTrials(rig,win,trialType,files);
 end
 if iscell(keep_cramp) == 1
     keep_cramp = cell2mat(keep_cramp');
