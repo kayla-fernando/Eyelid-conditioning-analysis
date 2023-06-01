@@ -312,7 +312,7 @@ elseif numel(unique(rig)) > 1
                     idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first');  
                     latencies{k}{ii} = idx{k}{ii}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
                 elseif logical(size(trialType,1) == size(cspaired_all,1)) == 1
-                    keep_trials_window = keep_trials_temp2(1,68:142); % exclude US onset
+                    keep_trials_window = keep_trials_temp2(1,68:142); % excludes US onset
                     idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first');  
                     latencies{k}{ii} = idx{k}{ii}*3; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 3 ms/frame
                 end
@@ -326,7 +326,7 @@ elseif numel(unique(rig)) > 1
                     idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first'); 
                     latencies{k}{ii} = idx{k}{ii}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
                 elseif logical(size(trialType,1) == size(cspaired_all,1)) == 1
-                    keep_trials_window = keep_trials_temp2(1,24:50); % exclude US onset
+                    keep_trials_window = keep_trials_temp2(1,24:50); % excludes US onset
                     idx{k}{ii} = find(keep_trials_window == max(keep_trials_temp2),1,'first'); 
                     latencies{k}{ii} = idx{k}{ii}*8; % our window starts at CS onset, therefore idx is the number of frames after CS onset that the CR reaches max amp. 8 ms/frame
                 end
