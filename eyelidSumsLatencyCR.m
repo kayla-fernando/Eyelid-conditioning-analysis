@@ -225,8 +225,6 @@ elseif numel(unique(rig)) > 1
     latencies = latencies(latencies >= 100); % real CRs have at least 100 ms latency from looking at eyelid traces, get rid of false positives
 end
 
-sort_latencies = sort(latencies);
-
 %% Latency to CR peak
 % Ideally use CS-catch trials
 % Can use CS-US trials for larger sample size, but search window is biased
@@ -354,8 +352,6 @@ elseif numel(unique(rig)) > 1
     latencies = latencies';
     latencies = latencies(latencies >= 100 & latencies <= 350); % exclude detection of double blinks/grooming
 end
-
-sort_latencies = sort(latencies);
 
 %% Plotting latencies over time
 
