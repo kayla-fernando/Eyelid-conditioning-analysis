@@ -15,7 +15,7 @@ group_learned(group_learned == 0) = NaN;
 
 color = [0.6350 0.0780 0.1840];
 r1 = rectangle('Position',[times(68) 0 0.250 1],'FaceColor','b','EdgeColor','none'); hold on
-%r2 = rectangle('Position',[times(143) 0 0.030 1],'FaceColor','g','EdgeColor','none'); hold on
+r2 = rectangle('Position',[times(143) 0 0.030 1],'FaceColor','g','EdgeColor','none'); hold on
 
 for n = 1:size(group_learned,1)
     if any(isnan(group_learned(n,:))) == 1
