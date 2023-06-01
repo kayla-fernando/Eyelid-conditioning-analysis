@@ -44,7 +44,7 @@ while n < numBlocks-1
     else
         blockCRamps(n+1) = mean(keep_cramp(idx(1):idx(end)));
         blockFullCRamps(n+1) = mean(fullCR(idx(1):idx(end)));
-         blockBaseline(n+1) = mean(keep_baseline(idx(1):idx(end)));
+        blockBaseline(n+1) = mean(keep_baseline(idx(1):idx(end)));
     end
     n = n+1;
 end
