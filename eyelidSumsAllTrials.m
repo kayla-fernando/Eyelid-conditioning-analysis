@@ -102,19 +102,20 @@ if numel(unique(rig)) == 1
     [keep_cramp,keep_trials,keep_baseline,fullCR,keep_trials_idx] = sortTrials(rig,win,trialType,files);
 elseif numel(unique(rig)) > 1
     [keep_cramp,keep_trials,keep_baseline,fullCR] = sortTrials(rig,win,trialType,files);
-end
-if iscell(keep_cramp) == 1
-    keep_cramp = cell2mat(keep_cramp');
-     for n = 1:length(keep_cramp)
-        keep_trials_idx(n) = find(cramp == keep_cramp(n));
+    if iscell(keep_cramp) == 1
+        keep_cramp = cell2mat(keep_cramp');
+        for n = 1:length(keep_cramp)
+            keep_trials_idx(n) = find(cramp == keep_cramp(n));
+         end
+    end
+    if iscell(keep_baseline) == 1
+        keep_baseline = cell2mat(keep_baseline');
+    end
+    if iscell(fullCR) == 1
+        fullCR = cell2mat(fullCR)';
     end
 end
-if iscell(keep_baseline) == 1
-    keep_baseline = cell2mat(keep_baseline');
-end
-if iscell(fullCR) == 1
-    fullCR = cell2mat(fullCR)';
-end
+
 if controlGroup == 1 
     c = 'b'; else c = 'r'; end
 [blockCRamps,blockFullCRamps,blockBaseline,hf2,hf3,hf4,hf5,hf6] = plotBlockProcessedSeqCRamps(20,keep_trials_idx,keep_cramp,keep_baseline,fullCR,mouse,blockSizeTemp,c);
