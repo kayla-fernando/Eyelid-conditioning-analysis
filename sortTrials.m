@@ -127,12 +127,7 @@ elseif numel(unique(rig)) > 1
     end
 end
 
-if nargout == 1
-    varargout{1} = keep_cramp;
-elseif nargout == 2
-    varargout{1} = keep_cramp;
-    varargout{2} = keep_trials;
-elseif nargout == 4
+if nargout < 5 
     varargout{1} = keep_cramp;
     varargout{2} = keep_trials;
     varargout{3} = keep_baseline;
