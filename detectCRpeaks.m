@@ -13,7 +13,7 @@ basepath = 'Y:\\home\kayla\Eyelid conditioning\';
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess
 
-% Define trial type to analyze (cspaired_all/cspaired_all_cell; cscatch_all/cscatch_all_cell)
+% Define trial type to analyze
 if numel(unique(rig)) == 1
     trialType = cspaired_all;
 elseif numel(unique(rig)) > 1
