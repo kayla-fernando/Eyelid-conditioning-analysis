@@ -1,4 +1,4 @@
-%% Batch compress videos, batch CRprob, and batch CRamp plots for multiple mice on the same day
+%% Batch compress videos, batch CRprob, and batch CRamp plots for multiple mice on the same day %%
 
 close all
 clear all
