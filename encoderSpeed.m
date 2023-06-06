@@ -17,7 +17,7 @@ encodingFactor = 1; % LabJack U6 default; influences encoder resolution
     % 4 if rising & falling of A and rising & falling of B
 
 % Preprocess eyelid conditioning data, output promptData.txt
-eyelidPreprocess
+eyelidPreprocess; clear eyelid3_0_trials; clear eyelid3_5_trials; clear eyelid3_7_trials;
 
 r = d/2; % radius in cm
 centralAngle = (2*pi)/sections; % radians traversed in 1 section
