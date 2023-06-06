@@ -76,15 +76,12 @@ if numel(unique(rig)) == 1
         % Search for CR peaks (i.e., local maxima) from first derivative
         dydx = gradient(keep_trials(k,:))./gradient(t);
         slope = 0; % Local maximum/minimum where slope is 0
-%         refline(0, slope);
         state = 0; % A state variable
         event_indices_temp = [];
         for ii = 120:143 % strict search window
             if (state == 0) && (dydx(ii) < slope) && (dydx(ii-2) > slope) && (dydx(ii+2) < slope) % definition of local maximum
                 state = 1;
                 event_indices{k}(ii) = [event_indices_temp ii]; % event_indices will increase with each event
-%                 l = line([ii ii], [-0.05, 0.05]);
-%                 set(l, 'color', 'r');
             elseif (state == 1) && (dydx(ii) > slope) 
                 state = 0;
             end
@@ -102,15 +99,12 @@ elseif numel(unique(rig)) > 1
         for ii = 1:size(keep_trials_temp,1)
             dydx = gradient(keep_trials_temp(ii,:))./gradient(t);
             slope = 0; % Local maximum/minimum where slope is 0
-%             refline(0, slope);
             state = 0; % A state variable
             event_indices_temp_temp = [];
             for jj = 120:143 % strict search window
                 if (state == 0) && (dydx(jj) < slope) && (dydx(jj-2) > slope) && (dydx(jj+2) < slope) % definition of local maximum
                     state = 1;
                     event_indices_temp{ii} = [event_indices_temp_temp jj]; % event_indices will increase with each event
-%                     l = line([jj jj], [-0.05, 0.05]);
-%                     set(l, 'color', 'r');
                 elseif (state == 1) && (dydx(jj) > slope) 
                     state = 0;
                 end
