@@ -99,11 +99,11 @@ title([mouse ' baseline value of detected CRs in sequential order']);
 xlim([0 numBlocks]); xlabel(['Trial block (' num2str(blockSizeTemp(1)) ' trials each)']);
 ylim([0 1]); ylabel('Fraction of eye closed');
 
-if nargout == 3
-    varargout{1} = blockCRamps;
-    varargout{2} = blockFullCRamps;
-    varargout{3} = blockBaseline;
-elseif nargout > 1
+% if nargout == 3
+%     varargout{1} = blockCRamps;
+%     varargout{2} = blockFullCRamps;
+%     varargout{3} = blockBaseline;
+if nargout > 1
     varargout{1} = blockCRamps;
     varargout{2} = blockFullCRamps;
     varargout{3} = blockBaseline;
