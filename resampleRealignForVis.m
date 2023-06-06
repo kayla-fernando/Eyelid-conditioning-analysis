@@ -1,4 +1,4 @@
-% Upsampling blue rig eyelid traces to match black rig eyelid traces and aligning signals to US onset for visualization
+%% Upsampling blue rig eyelid traces to match black rig eyelid traces and aligning signals to US onset for visualization %%
 
 % Written by Kayla Fernando (2/23/23)
 
