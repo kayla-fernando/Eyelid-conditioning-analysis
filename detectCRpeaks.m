@@ -64,7 +64,7 @@ elseif numel(unique(rig)) > 1
             keep_trials_idx(n) = find(cramp == keep_cramp(n));
         end
     end
-    clear cramp; clear keep_cramp
+    clearvars cramp keep_cramp
 end
 
 % Search for CR peaks
