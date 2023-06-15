@@ -353,6 +353,16 @@ elseif numel(unique(rig)) > 1
     latencies = latencies(latencies >= 100 & latencies <= 350); % exclude detection of double blinks/grooming
 end
 
+%% Standard deviation of CR latency and CR peak over time
+
+% Comment out all 4 latency logicals in previous 2 sections
+logic = (latencies(:,1) >= 100 & latencies(:,1) <= 350);
+
+selectLatencies = latencies(logic);
+selectTrials = keep_trials_idx(logic);
+
+allData = horzcat(selectLatencies,selectTrials);
+
 %% Plotting latencies over time
 
 meanFilterFunction = @(block_struct) mean(block_struct.data);
