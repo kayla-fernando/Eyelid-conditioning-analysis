@@ -11,7 +11,7 @@ mouse = 'mouse';
 basepath = 'Y:\\home\kayla\Eyelid conditioning\';
 
 % Preprocess eyelid conditioning data, output promptData.txt
-eyelidPreprocess; clear eyelid3_0_trials; clear eyelid3_5_trials; clear eyelid3_7_trials;
+eyelidPreprocess; clearvars eyelid3_0_trials eyelid3_5_trials eyelid3_7_trials calib_trials catch_trials conditioning_trials 
 
 % Define trial type to analyze
 if numel(unique(rig)) == 1
