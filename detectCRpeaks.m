@@ -70,6 +70,11 @@ end
 % Search for CR peaks
 if numel(unique(rig)) == 1
     event_indices = cell(1,size(keep_trials,1));
+    if strcmp(rig{1},'black') == 1
+        search = 120:143; % strict search window
+    elseif strcmp(rig{1},'blue') == 1
+        search = 40:51; % strict search window
+    end
     for k = 1:size(keep_trials,1)
         % Original eyelid trace
         t = 1:length(keep_trials(k,:));
@@ -78,7 +83,7 @@ if numel(unique(rig)) == 1
         slope = 0; % Local maximum/minimum where slope is 0
         state = 0; % A state variable
         event_indices_temp = [];
-        for ii = 120:143 % strict search window
+        for ii = search(1):search(end) % strict search window
             if (state == 0) && (dydx(ii) < slope) && (dydx(ii-2) > slope) && (dydx(ii+2) < slope) % definition of local maximum
                 state = 1;
                 event_indices{k}(ii) = [event_indices_temp ii]; % event_indices will increase with each event
@@ -90,6 +95,13 @@ if numel(unique(rig)) == 1
     end
 elseif numel(unique(rig)) > 1
     event_indices = cell(1,length(keep_trials));
+    for k = 1:length(files)
+        if strcmp(rig{k},'black') == 1
+            search{k} = 120:143; % strict search window
+         elseif strcmp(rig{k},'blue') == 1
+            search{k} = 40:51; % strict search window
+        end
+    end
     for k = 1:length(keep_trials)
         % Original eyelid trace
         t = 1:length(keep_trials{k});
@@ -101,7 +113,7 @@ elseif numel(unique(rig)) > 1
             slope = 0; % Local maximum/minimum where slope is 0
             state = 0; % A state variable
             event_indices_temp_temp = [];
-            for jj = 120:143 % strict search window
+            for jj = search{k}(1):search{k}(end) % strict search window
                 if (state == 0) && (dydx(jj) < slope) && (dydx(jj-2) > slope) && (dydx(jj+2) < slope) % definition of local maximum
                     state = 1;
                     event_indices_temp{ii} = [event_indices_temp_temp jj]; % event_indices will increase with each event
