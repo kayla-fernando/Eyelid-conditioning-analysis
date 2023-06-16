@@ -136,17 +136,3 @@ elseif numel(unique(rig)) > 1
     peak_number = unique(peak_counts)
     frequency = histcounts(peak_counts)
 end
-
-%%
-
-% Pie chart
-labels = {[num2str(peak_number(1)) ' peaks']; [num2str(peak_number(2)) ' peak']; 
-          [num2str(peak_number(3)) ' peaks']; [num2str(peak_number(4)) ' peaks'];
-          [num2str(peak_number(5)) ' peaks']; [num2str(peak_number(6)) ' peaks']};
-h = pie(frequency, labels);
-% patchHand = findobj(h, 'Type', 'Patch');
-% colormap = {'#2f4b7c';     % 0 peaks
-%             '#a05195';     % 1 peak
-%             '#f95d6a';     % 2 peaks
-%             '#ffa600'};    % 3 peaks
-% set(patchHand, {'FaceColor'}, colormap)
