@@ -75,11 +75,16 @@ if numel(unique(rig)) == 1
     elseif strcmp(rig{1},'blue') == 1
         search = 40:51; % strict search window
     end
+    CR_blink_rate = [];
     for k = 1:size(keep_trials,1)
         % Original eyelid trace
         t = 1:length(keep_trials(k,:));
         % Search for CR peaks (i.e., local maxima) from first derivative
         dydx = gradient(keep_trials(k,:))./gradient(t);
+            dydx_search = dydx(search(1):search(end)); % strict search window
+            dydx_logic = dydx(search(1):search(end)) > 0;
+            dydx_mean = mean(dydx_search(dydx_logic)); % average all positive values in window
+            CR_blink_rate = [CR_blink_rate dydx_mean];
         slope = 0; % Local maximum/minimum where slope is 0
         state = 0; % A state variable
         event_indices_temp = [];
@@ -102,6 +107,7 @@ elseif numel(unique(rig)) > 1
             search{k} = 40:51; % strict search window
         end
     end
+    CR_blink_rate = [];
     for k = 1:length(keep_trials)
         % Original eyelid trace
         t = 1:length(keep_trials{k});
@@ -110,6 +116,10 @@ elseif numel(unique(rig)) > 1
         event_indices_temp = cell(size(keep_trials_temp,1),1);
         for ii = 1:size(keep_trials_temp,1)
             dydx = gradient(keep_trials_temp(ii,:))./gradient(t);
+                dydx_search = dydx(search{k}(1):search{k}(end)); % strict search window
+                dydx_logic = dydx(search{k}(1):search{k}(end)) > 0;
+                dydx_mean = mean(dydx_search(dydx_logic)); % average all positive values in window
+                CR_blink_rate = [CR_blink_rate dydx_mean];
             slope = 0; % Local maximum/minimum where slope is 0
             state = 0; % A state variable
             event_indices_temp_temp = [];
