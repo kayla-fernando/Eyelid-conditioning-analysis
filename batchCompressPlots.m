@@ -4,6 +4,8 @@ close all
 clear all
 clc
 
+experiment = 'experiment';
+
 mouse = {'mouse'; 'mouse';...
          'mouse'; 'mouse';...
          'mouse'; 'mouse'};
@@ -14,7 +16,7 @@ date = '220101';
 
 % Make batch compressed videos
 for n = 1:length(mouse);
-    makeCompressedVideos(['Y:\\home\kayla\Eyelid conditioning\' mouse{n} '\' date])
+    makeCompressedVideos(['Y:\\home\kayla\Eyelid conditioning\' experiment '\' mouse{n} '\' date])
 end
 
 % Make batch CRprob and CRamp plots
@@ -30,7 +32,7 @@ for n = 1:length(mouse);
     us = 3; %triggers airpuff; arduino COM3
     cs = 5; %triggers speaker; refers to 5 kHz tone
     
-    folder = fullfile('Y:\\home\kayla\Eyelid conditioning\',mouse{n},date);
+    folder = fullfile(['Y:\\home\kayla\Eyelid conditioning\' experiment '\' mouse{n} '\' date]);
     trials = processTrials(fullfile(folder,'compressed'),...
         fullfile(folder,'compressed',sprintf('Data_%s_s01_calib.mp4',date))); 
 
