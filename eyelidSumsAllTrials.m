@@ -105,7 +105,7 @@ elseif numel(unique(rig)) > 1
     if iscell(keep_cramp) == 1
         keep_cramp = cell2mat(keep_cramp');
         for n = 1:length(keep_cramp)
-            keep_trials_idx(n) = find(cramp == keep_cramp(n));
+            keep_trials_idx(n) = find(cramp == keep_cramp(n),1);
          end
     end
     if iscell(keep_baseline) == 1
