@@ -364,6 +364,7 @@ selectTrials = keep_trials_idx(logic);
 allData = horzcat(selectLatencies,selectTrials);
 
 %% Plotting latencies over time
+% Does NOT keep CRs in trial space
 
 meanFilterFunction = @(block_struct) mean(block_struct.data);
 m = blockproc(latencies,[20 1],meanFilterFunction);
