@@ -34,7 +34,7 @@ for n = 1:length(mouse);
     
     folder = fullfile(['Y:\\home\kayla\Eyelid conditioning\' experiment '\' mouse{n} '\' date]);
     trials = processTrials(fullfile(folder,'compressed'),...
-        fullfile(folder,'compressed',sprintf('Data_%s_s01_calib.mp4',date))); 
+        fullfile(folder,'compressed',sprintf('%_%s_s01_calib.mp4',mouse{n},date))); 
 
     save(fullfile(folder, 'trialdata.mat'),'trials');
 
