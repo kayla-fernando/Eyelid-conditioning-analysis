@@ -72,4 +72,6 @@ ylabel('CR size')
 if nargout > 0
     varargout{1}=hf1;
     varargout{2}=hf2;
+    varargout{3}=CRprob;
+    varargout{4}=CRamp;
 end
