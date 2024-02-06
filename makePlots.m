@@ -70,6 +70,6 @@ xlabel('Trials')
 ylabel('CR size')
 
 if nargout > 0
-    %varargout{1}=hf1;
+    varargout{1}=hf1;
     varargout{2}=hf2;
 end
