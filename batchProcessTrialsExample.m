@@ -4,11 +4,11 @@ close all
 clear all
 clc
 
-experiment = 'Thy1-ChR2';
+experiment = 'experiment';
 
-mouse = 'KF186';
-rig = 'blue';
-date = '240212';
+mouse = 'mouse';
+rig = 'rig';
+date = 'date';
 
 if strcmp(rig,'black') == 1
     win = [139 140 141 142]; %determined through imageSubtraction.m
