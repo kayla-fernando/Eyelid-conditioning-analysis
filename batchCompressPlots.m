@@ -6,20 +6,16 @@ clc
 
 experiment = 'experiment';
 
-mouse = {'mouse'; 'mouse';...
-         'mouse'; 'mouse';...
-         'mouse'; 'mouse'};
-rig = {'black'; 'blue';... 
-       'black'; 'blue'; 
-       'black'; 'blue'};
-date = '220101';
+mouse = {'mouse'; 'mouse'};
+rig = {'blue'; 'blue'}; 
+date = 'date';
 
-% Make batch compressed videos
+%% Make batch compressed videos
 for n = 1:length(mouse);
-    makeCompressedVideos(['Y:\\home\kayla\Eyelid conditioning\' experiment '\' mouse{n} '\' date])
+    makeCompressedVideos(['Z:\\home\kayla\Eyelid conditioning\' experiment '\' mouse{n} '\' date])
 end
 
-% Make batch CRprob and CRamp plots
+%% Make batch CRprob and CRamp plots
 for n = 1:length(mouse);
     if strcmp(rig{n},'black') == 1
         win = [139 140 141 142]; %determined through imageSubtraction.m
@@ -29,12 +25,12 @@ for n = 1:length(mouse);
     
     isi = 250;
     session = 1;
-    us = 3; %triggers airpuff; arduino COM3
-    cs = 5; %triggers speaker; refers to 5 kHz tone
+    us = 3; %triggers airpuff
+    cs = 5; %triggers speaker
     
-    folder = fullfile(['Y:\\home\kayla\Eyelid conditioning\' experiment '\' mouse{n} '\' date]);
+    folder = fullfile(['Z:\\home\kayla\Eyelid conditioning\' experiment '\' mouse{n} '\' date]);
     trials = processTrials(fullfile(folder,'compressed'),...
-        fullfile(folder,'compressed',sprintf('%_%s_s01_calib.mp4',mouse{n},date))); 
+        fullfile(folder,'compressed',sprintf('%s_%s_s01_calib.mp4',mouse{n},date))); 
 
     save(fullfile(folder, 'trialdata.mat'),'trials');
 
