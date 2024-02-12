@@ -17,10 +17,10 @@ basepath2 = 'Y:\\All_Staff\home\kayla\Image Processing';
 
 load([basepath mouse '\' date '\trialdata.mat']);
 
-% Range of frames to analyze
+% Range of frames to analyze; black rig = [130 160]; blue rig = [30 60]
 range = [130 160];
 
-%% Use the first 66 frames of a US-only trial as the baseline period
+%% Use the first 66 (black)/10 (blue) frames of a US-only trial as the baseline period
 
 % Find a US-only trial
 usonlytrials = find(trials.c_usdur>0 & trials.c_csnum==7);
