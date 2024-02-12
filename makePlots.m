@@ -1,4 +1,4 @@
-function varargout = makePlots(trials,win,varargin)
+function varargout = makePlots(trials,rig,win,varargin)
 
 if length(varargin) > 0
     isi = varargin{1};
@@ -51,7 +51,11 @@ ylabel('Eyelid pos (FEC)')
 %idx = 1:length(cs10trials);
 %idx2 = 1:length(keepers1);
 %cramp = mean(keepers3(:,win),2) - mean(keepers3(:,1:66),2); 
-cramp = mean(eyelid3(:,win),2) - mean(eyelid3(:,1:66),2); 
+if strcmp(rig,'black') == 1 
+    cramp = mean(eyelid3(:,win),2) - mean(eyelid3(:,1:66),2); 
+elseif strcmp(rig,'blue') == 1
+    cramp = mean(eyelid3(:,win),2) - mean(eyelid3(:,1:10),2);
+end
 CRprob = length(cramp(cramp>0.1))/length(idx)
 CRamp = mean(cramp(cramp>0.1))
 
