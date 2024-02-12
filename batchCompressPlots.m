@@ -25,8 +25,8 @@ for n = 1:length(mouse);
     
     isi = 250;
     session = 1;
-    us = 3; %triggers airpuff
-    cs = 5; %triggers speaker
+    us = 3; 
+    cs = 5; 
     
     folder = fullfile(['Z:\\home\kayla\Eyelid conditioning\' experiment '\' mouse{n} '\' date]);
     trials = processTrials(fullfile(folder,'compressed'),...
