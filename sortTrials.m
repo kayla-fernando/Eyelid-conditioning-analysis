@@ -1,4 +1,4 @@
-function varargout = sortTrials(rig,win,trialType,files)
+function varargout = sortTrials(rig,blackwin,bluewin,trialType,files)
 % Sorts out trials (which type is defined by the user) where a CR occurred
 
 % Written by Kayla Fernando (11/28/22)
@@ -7,7 +7,7 @@ function varargout = sortTrials(rig,win,trialType,files)
 if numel(unique(rig)) == 1
     % Black rig throughout training
     if strcmp(rig,'black') == 1
-        win = [139 140 141 142]; % determined through imageSubtraction.m
+        win = blackwin; % determined through imageSubtraction.m
         cramp = mean(trialType(:,win),2) - mean(trialType(:,1:66),2);
         for k = 1:length(cramp)
             if cramp(k) > 0.1 % 10 percent of normalized eyelid position throughout the trial
@@ -22,7 +22,7 @@ if numel(unique(rig)) == 1
         fullCR = keep_baseline + keep_cramp; % unmasked CR
     % Blue rig throughout training
     elseif strcmp(rig,'blue') == 1 
-        win = [47 48 49 50]; % determined through imageSubtraction.m
+        win = bluewin; % determined through imageSubtraction.m
         cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2);
         for k = 1:length(cramp)
             if cramp(k) > 0.1 % 10 percent of normalized eyelid position throughout the trial
@@ -49,7 +49,7 @@ elseif numel(unique(rig)) > 1
     for k = 1:length(files)
         % Fill this cell if on the black rig on this session
         if strcmp(rig{k},'black') == 1
-            win{k} = [139 140 141 142];
+            win{k} = blackwin;
             trialTypeTemp = trialType{k};
             cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:66),2); 
             keep_trials_temp = keep_trials{k};
@@ -66,7 +66,7 @@ elseif numel(unique(rig)) > 1
             end
         % Fill this cell if on the blue rig on this session
         elseif strcmp(rig{k},'blue') == 1
-            win{k} = [47 48 49 50];
+            win{k} = bluewin;
             trialTypeTemp = trialType{k};
             cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:10),2); 
             keep_trials_temp = keep_trials{k};
