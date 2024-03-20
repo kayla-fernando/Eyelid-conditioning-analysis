@@ -8,8 +8,12 @@ close all
 clc
 
 mouse = 'mouse'; 
-basepath = 'Y:\\';
+experiment = 'experiment'
+basepath = ['Z:\\home\kayla\Eyelid conditioning\' experiment '\'];
 controlGroup = 1;
+blackwin = [139 140 141 142];
+bluewin = [47 48 49 50];
+trialblocksize = 50;
 
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess; clearvars eyelid3_0_trials eyelid3_5_trials eyelid3_7_trials calib_trials catch_trials conditioning_trials 
@@ -27,9 +31,9 @@ end
     % Define the block parameters (m rows by n cols block). We will average every m trials
     for k = 1:length(files)
         if strcmp(rig{k},'black') == 1
-            blockSize{k} = [100 334];
+            blockSize{k} = [trialblocksize 334];
         elseif strcmp(rig{k},'blue') == 1
-            blockSize{k} = [100 200];
+            blockSize{k} = [trialblocksize 200];
         end
     end
     % Now do the actual averaging (block average down to smaller size array)
@@ -56,13 +60,13 @@ end
 if numel(unique(rig)) == 1
     % Binned CRamp
         if strcmp(rig,'black') == 1
-            win = [139 140 141 142];
+            win = blackwin;
             cramp = mean(trialType(:,win),2) - mean(trialType(:,1:66),2); 
         elseif strcmp(rig,'blue') == 1
-            win = [47 48 49 50];
+            win = bluewin;
             cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2); 
         end
-        blockSize2 = [100 1];
+        blockSize2 = [trialblocksize 1];
         CRamps = blockproc(cramp, blockSize2, meanFilterFunction);
     % Binned CRprob
         cramp2 = cramp>0.1;
@@ -75,17 +79,17 @@ elseif numel(unique(rig)) > 1
     for k = 1:length(files)
         % Binned CRamp
             if strcmp(rig{k},'black') == 1
-                win{k} = [139 140 141 142];
+                win{k} = blackwin;
                 trialTypeTemp = trialType{k};
                 cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:66),2); 
             elseif strcmp(rig{k},'blue') == 1
-                win{k} = [47 48 49 50];
+                win{k} = bluewin;
                 trialTypeTemp = trialType{k};
                 cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:10),2); 
             end
     end
             cramp = vertcat(cramp{:});
-            blockSize2 = [100 1];
+            blockSize2 = [trialblocksize 1];
             CRamps = blockproc(cramp, blockSize2, meanFilterFunction);
         % Binned CRprob
             cramp2 = cramp>0.1;
@@ -99,9 +103,9 @@ end
      
 % Calculate and plot binned CRamps across all trials using only successful CS-US trials while preserving temporal structure of training
 if numel(unique(rig)) == 1
-    [keep_cramp,keep_trials,keep_baseline,fullCR,keep_trials_idx] = sortTrials(rig,win,trialType,files);
+    [keep_cramp,keep_trials,keep_baseline,fullCR,keep_trials_idx] = sortTrials(rig,blackwin,bluewin,trialType,files);
 elseif numel(unique(rig)) > 1
-    [keep_cramp,keep_trials,keep_baseline,fullCR] = sortTrials(rig,win,trialType,files);
+    [keep_cramp,keep_trials,keep_baseline,fullCR] = sortTrials(rig,blackwin,bluewin,trialType,files);
     if iscell(keep_cramp) == 1
         keep_cramp = cell2mat(keep_cramp');
         for n = 1:length(keep_cramp)
@@ -118,8 +122,8 @@ end
 
 if controlGroup == 1 
     c = 'b'; else c = 'r'; end
-[blockCRamps,blockFullCRamps,blockBaseline,hf2,hf3,hf4,hf5,hf6] = plotBlockProcessedSeqCRamps(20,keep_trials_idx,keep_cramp,keep_baseline,fullCR,mouse,blockSizeTemp,c);
+[blockCRamps,blockFullCRamps,blockBaseline,hf2,hf3,hf4,hf5,hf6] = plotBlockProcessedSeqCRamps(1000/trialblocksize,keep_trials_idx,keep_cramp,keep_baseline,fullCR,mouse,blockSizeTemp,c);
 
-% Plot representative eyelid traces for the naive, intermediate, and learned conditions
-hf7 = figure;
-eyelidSumsLearningEpochsForVis
+% % Plot representative eyelid traces for the naive, intermediate, and learned conditions
+% hf7 = figure;
+% eyelidSumsLearningEpochsForVis
