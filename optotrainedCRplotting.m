@@ -1,7 +1,7 @@
 %% One animal concatenate all CS-US trials, all sessions
 
-mouse = 'KF192'; 
-basepath = 'Z:\\home\kayla\Eyelid conditioning\Thy1-ChR2\';
+mouse = 'mouse'; 
+basepath = 'Z:\\';
 [cspaired_all_cell,usonly_all_cell,cscatch_all_cell,cspaired_all,usonly_all,cscatch_all,files,directory,trials,date] = getAllEyelidTraces(mouse,basepath);
 rig = cell(1,length(files)); rig(1,1:length(files)) = {'blue'};
 [conditioning_trials,calib_trials,catch_trials,eyelid3_5_trials,eyelid3_7_trials,eyelid3_0_trials,files,date] = renameEyelidTraces(cspaired_all_cell,usonly_all_cell,cscatch_all_cell,rig,files,directory,1);
