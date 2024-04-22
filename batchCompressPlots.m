@@ -45,5 +45,9 @@ for n = 1:length(mouse);
 
     print(hf1,fullfile(folder,sprintf('%s_%s_CRs.pdf',mouse{n},date)),'-dpdf')
     print(hf2,fullfile(folder,sprintf('%s_%s_CR_amp_trend.pdf',mouse{n},date)),'-dpdf')
+
+    % Delete the videos that were just generated to save space
+    cd(fullfile(folder,'compressed'))
+    delete *.mp4
     
 end
