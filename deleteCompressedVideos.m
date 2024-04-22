@@ -8,13 +8,8 @@ close all
 clear all
 clc
 
-experiment = 'ASTN2';
-mouse = {'KF49'; 'KF50'; 'KF51';
-         'KF52'; 'KF58'; 'KF59';
-         'KF60'; 'KF61'; 'KF62';
-         'KF63'; 'KF64'; 'KF65';
-         'KF66'; 'KF67'; 'KF68';
-         'KF70'; 'KF71'; 'KF72'};
+experiment = 'experiment';
+mouse = {'mouse'; 'mouse'; 'mouse'};
 basepath = ['Z:\\home\kayla\Eyelid conditioning\' experiment '\'];
 
 for n = 1:length(mouse)
