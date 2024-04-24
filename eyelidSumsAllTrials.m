@@ -127,3 +127,5 @@ if controlGroup == 1
 % % Plot representative eyelid traces for the naive, intermediate, and learned conditions
 % hf7 = figure;
 % eyelidSumsLearningEpochsForVis
+
+delete promptData.txt test.eps
