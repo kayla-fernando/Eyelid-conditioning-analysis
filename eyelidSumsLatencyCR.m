@@ -45,7 +45,7 @@ end
 % If trained on multiple rigs, cell array output format will include 
 % sessions that don't have trials and CRamps to keep (i.e., empty cells)
 % Truncate these cell arrays in later sections
-[keep_cramp,keep_trials] = sortTrials(rig,win,trialType,files);
+[keep_cramp,keep_trials] = sortTrials(rig,blackwin,bluewin,trialType,files);
 
 %% Latency to CR onset (defined as 10 percent of CRamp)
 % Use CS-US trials for larger sample size
