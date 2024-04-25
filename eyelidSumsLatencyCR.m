@@ -10,7 +10,8 @@ close all
 clc
 
 mouse = 'mouse'; 
-basepath = 'Y:\\';
+experiment = 'experiment';
+basepath = ['Y:\\' experiment '\'];
 
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess; clearvars eyelid3_0_trials eyelid3_5_trials eyelid3_7_trials calib_trials catch_trials conditioning_trials 
