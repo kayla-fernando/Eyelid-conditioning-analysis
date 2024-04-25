@@ -12,6 +12,8 @@ clc
 mouse = 'mouse'; 
 experiment = 'experiment';
 basepath = ['Z:\\home\kayla\Eyelid conditioning\' experiment '\'];
+blackwin = [139 140 141 142];
+bluewin = [47 48 49 50];
 
 % Preprocess eyelid conditioning data, output promptData.txt
 eyelidPreprocess; clearvars eyelid3_0_trials eyelid3_5_trials eyelid3_7_trials calib_trials catch_trials conditioning_trials 
@@ -26,17 +28,17 @@ end
 % Define windows
 if numel(unique(rig)) == 1
     if strcmp(rig,'black') == 1
-        win = [139 140 141 142]; % determined through imageSubtraction.m
+        win = blackwin; % determined through imageSubtraction.m
     elseif strcmp(rig,'blue') == 1 
-        win = [47 48 49 50]; % determined through imageSubtraction.m
+        win = bluewin; % determined through imageSubtraction.m
     end
 elseif numel(unique(rig)) > 1
     keep_trials = cell(1,length(files));
     for k = 1:length(files)
         if strcmp(rig{k},'black') == 1
-            win{k} = [139 140 141 142];
+            win{k} = blackwin;
          elseif strcmp(rig{k},'blue') == 1
-            win{k} = [47 48 49 50];
+            win{k} = bluewin;
         end
     end
 end
