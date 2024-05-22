@@ -42,3 +42,5 @@ print(hf2,fullfile(folder,sprintf('%s_%s_CR_amp_trend.pdf',mouse,date)),'-dpdf')
 % Delete the videos that were just generated to save space
 cd(fullfile(folder,'compressed'))
 delete *.mp4
+
+cd('Z:\home\kayla\MATLAB\Eyelid conditioning code\');
