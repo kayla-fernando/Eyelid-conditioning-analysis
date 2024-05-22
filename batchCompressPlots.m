@@ -49,5 +49,7 @@ for n = 1:length(mouse);
     % Delete the videos that were just generated to save space
     cd(fullfile(folder,'compressed'))
     delete *.mp4
+
+    cd('Z:\home\kayla\MATLAB\Eyelid conditioning code\');
     
 end
