@@ -87,6 +87,7 @@ end
 
 clc
 
+% Browse to the folder containing the image sequence you want to see
 MIJ.run('Image Sequence...')
 MIJ.run('3-3-2 RGB')
 MIJ.run('Start Animation [\]')
