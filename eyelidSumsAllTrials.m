@@ -123,6 +123,7 @@ end
 if controlGroup == 1 
     c = 'b'; else c = 'r'; end
 [blockCRamps,blockFullCRamps,blockBaseline,hf2,hf3,hf4,hf5,hf6] = plotBlockProcessedSeqCRamps(1000/trialblocksize,keep_trials_idx,keep_cramp,keep_baseline,fullCR,mouse,blockSizeTemp,c);
+blockCRamps = blockCRamps';
 
 % % Plot representative eyelid traces for the naive, intermediate, and learned conditions
 % hf7 = figure;
