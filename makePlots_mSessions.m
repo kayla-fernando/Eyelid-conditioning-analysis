@@ -1,4 +1,4 @@
-function varargout = makePlots_mSessions(trials,win,varargin)
+function varargout = makePlots_mSessions(trials,rig,win,varargin)
 
 if length(varargin) > 1
     isi = varargin{1};
@@ -14,8 +14,8 @@ end
 
 %% Eyelid traces
 
-pairedtrials1 = find(trials.c_usdur>0 & trials.c_csnum==5 & trials.session_of_day == 1);
-pairedtrials2 = find(trials.c_usdur>0 & trials.c_csnum==5 & trials.session_of_day == 2);
+pairedtrials1 = find(trials.c_usdur>=0 & trials.c_csnum==5 & trials.session_of_day == 1);
+pairedtrials2 = find(trials.c_usdur>=0 & trials.c_csnum==5 & trials.session_of_day == 2);
 idx = 1:size(pairedtrials1,1)+size(pairedtrials2,1);
 eyelid1 = trials.eyelidpos(pairedtrials1,:);
 eyelid2 = trials.eyelidpos(pairedtrials2,:);
