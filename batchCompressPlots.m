@@ -19,6 +19,7 @@ end
 for n = 1:length(mouse);
     if strcmp(rig{n},'black') == 1
         win = [139 140 141 142]; %determined through imageSubtraction.m
+        load('Z:\home\kayla\MATLAB\Saved workspaces\timesBlue.mat');
     elseif strcmp(rig{n},'blue') == 1 
         win = [47 48 49 50]; %determined through imageSubtraction.m
     end
@@ -35,9 +36,9 @@ for n = 1:length(mouse);
     save(fullfile(folder, 'trialdata.mat'),'trials');
 
     if numel(unique(trials.session_of_day)) == 1
-        [hf1,hf2,CRprob,CRamp]=makePlots(trials,rig{n},win,isi,session,us,cs);
+        [hf1,hf2,CRprob,CRamp]=makePlots(trials,rig{n},win,times,isi,session,us,cs);
     else
-        [hf1,hf2,CRprob,CRamp]=makePlots_mSessions(trials,rig{n},win,isi,session,us,cs);
+        [hf1,hf2,CRprob,CRamp]=makePlots_mSessions(trials,rig{n},win,times,isi,session,us,cs);
     end
 
     hgsave(hf1,fullfile(folder,'CRs.fig'));
