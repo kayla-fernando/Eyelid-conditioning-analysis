@@ -1,4 +1,4 @@
-function varargout = makePlots(trials,rig,win,varargin)
+function varargout = makePlots(trials,rig,win,times,varargin)
 
 if length(varargin) > 0
     isi = varargin{1};
@@ -13,7 +13,12 @@ else
 end
 
 %% Eyelid traces
-pairedtrials = find(trials.c_usdur>0 & trials.c_csnum==5); % & trials.session_of_day == 2);
+
+if strcmp(rig,'black') == 1
+    trials.eyelidpos = trials.eyelidpos(:,1:200);
+    trials.tm = repmat(times,size(trials.tm,1),1);
+end
+pairedtrials = find(trials.c_usdur>=0 & trials.c_csnum==5); % & trials.session_of_day == 2);
 idx = 1:length(pairedtrials);
 eyelid1 = trials.eyelidpos(pairedtrials,:);
 calibmin1 = min(eyelid1');
@@ -48,11 +53,12 @@ xlabel('Time from CS (s)')
 ylabel('Eyelid pos (FEC)')
 
 %% CR amplitudes
+
 %idx = 1:length(cs10trials);
 %idx2 = 1:length(keepers1);
 %cramp = mean(keepers3(:,win),2) - mean(keepers3(:,1:66),2); 
 if strcmp(rig,'black') == 1 
-    cramp = mean(eyelid3(:,win),2) - mean(eyelid3(:,1:66),2); 
+    cramp = mean(eyelid3(:,win),2) - mean(eyelid3(:,1:10),2); 
 elseif strcmp(rig,'blue') == 1
     cramp = mean(eyelid3(:,win),2) - mean(eyelid3(:,1:10),2);
 end
