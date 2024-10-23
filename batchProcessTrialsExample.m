@@ -12,11 +12,11 @@ date = 'date';
 
 if strcmp(rig,'black') == 1
     win = [139 140 141 142]; %determined through imageSubtraction.m
-    load('Z:\home\kayla\MATLAB\Saved workspaces\timesBlue.mat');
 elseif strcmp(rig,'blue') == 1 
     win = [47 48 49 50]; %determined through imageSubtraction.m
 end
 
+load('Z:\home\kayla\MATLAB\Saved workspaces\timesBlue.mat');
 isi = 250;
 session = 1;
 us = 3;
