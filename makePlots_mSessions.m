@@ -1,4 +1,4 @@
-function varargout = makePlots_mSessions(trials,rig,win,varargin)
+function varargout = makePlots_mSessions(trials,rig,win,times,varargin)
 
 if length(varargin) > 1
     isi = varargin{1};
@@ -14,6 +14,10 @@ end
 
 %% Eyelid traces
 
+if strcmp(rig,'black') == 1
+    trials.eyelidpos = trials.eyelidpos(:,1:200);
+    trials.tm = repmat(times,size(trials.tm,1),1);
+end
 pairedtrials1 = find(trials.c_usdur>=0 & trials.c_csnum==5 & trials.session_of_day == 1);
 pairedtrials2 = find(trials.c_usdur>=0 & trials.c_csnum==5 & trials.session_of_day == 2);
 idx = 1:size(pairedtrials1,1)+size(pairedtrials2,1);
@@ -57,7 +61,11 @@ ylabel('Eyelid pos (FEC)')
 %idx = 1:length(cs10trials);
 %idx2 = 1:length(keepers1);
 %cramp = mean(keepers3(:,win),2) - mean(keepers3(:,1:66),2); 
-cramp = mean(eyelid3(:,win),2) - mean(eyelid3(:,1:66),2); 
+if strcmp(rig,'black') == 1 
+    cramp = mean(eyelid3(:,win),2) - mean(eyelid3(:,1:10),2); 
+elseif strcmp(rig,'blue') == 1
+    cramp = mean(eyelid3(:,win),2) - mean(eyelid3(:,1:10),2);
+end  
 CRprob = length(cramp(cramp>0.1))/length(idx)
 CRamp = mean(cramp(cramp>0.1))
 
