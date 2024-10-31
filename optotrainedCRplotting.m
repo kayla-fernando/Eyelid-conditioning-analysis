@@ -21,7 +21,7 @@ rig = cell(1,length(files)); rig(1,1:length(files)) = {'blue'};
 meanFilterFunction = @(block_struct) mean(block_struct.data);
 blockSize = [50 200];
 blockAveragedDownSignal = blockproc(cs2paired_all, blockSize, meanFilterFunction);
-gifFile = [mouse ' CS-US eyelid traces.gif']; % comment/uncomment line 34 for optional gif generation
+gifFile = [mouse ' CS-US eyelid traces.gif']; % comment/uncomment line 36 for optional gif generation
 for n = 1:size(blockAveragedDownSignal,1)
     plot(blockAveragedDownSignal(n,:)); ylim([0 1]); hold on
     CS_col_1 = 24;  % frame
@@ -33,7 +33,7 @@ for n = 1:size(blockAveragedDownSignal,1)
     hold off
     title(['Bin # ' num2str(n) ' (' num2str(blockSize(1)) ' trials each)']);
     %pause
-    exportgraphics(gcf,gifFile,Append=true); % comment/uncomment line 22 for optional gif generation
+    exportgraphics(gcf,gifFile,Append=true); % comment/uncomment line 24 for optional gif generation
 end
 hold off
 
