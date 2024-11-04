@@ -77,7 +77,7 @@ for ii = 1:length(eyelid3_5_2)
     if ~isempty(eyelid3_5_2{ii}) == 1
         cspaired_all_cell{ii} = vertcat(eyelid3_5_1{ii},eyelid3_5_2{ii});
     else
-        cspaired_all_cell = eyelid3_5_1; % cell format, each row is a trial and each column is eyelid position
+        cspaired_all_cell{ii} = eyelid3_5_1{ii}; % cell format, each row is a trial and each column is eyelid position
     end
 end
 
@@ -85,7 +85,7 @@ for ii = 1:length(eyelid3_7_2)
     if ~isempty(eyelid3_7_2{ii}) == 1
         usonly_all_cell{ii} = vertcat(eyelid3_7_1{ii},eyelid3_7_2{ii});
     else
-        usonly_all_cell = eyelid3_7_1;
+        usonly_all_cell{ii} = eyelid3_7_1{ii};
     end
 end
 
@@ -93,7 +93,7 @@ for ii = 1:length(eyelid3_0_2)
     if ~isempty(eyelid3_0_2{ii}) == 1
         cscatch_all_cell{ii} = vertcat(eyelid3_0_1{ii},eyelid3_0_2{ii});
     else
-        cscatch_all_cell = eyelid3_0_1;
+        cscatch_all_cell{ii} = eyelid3_0_1{ii};
     end
     
 end
