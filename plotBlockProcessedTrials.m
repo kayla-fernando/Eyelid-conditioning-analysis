@@ -1,4 +1,4 @@
-function [h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRprobs)
+function [h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRprobs,times)
 
 % Written by Kayla Fernando (7/10/22)
 
@@ -21,7 +21,7 @@ if numel(unique(rig)) == 1
     ax = s.Axes;    % Undocumented
     clear('cleanup')
     % Label x-axis
-    XLabels = trials{1}.tm(1,1:end);
+    XLabels = times; %trials{1}.tm(1,1:end); %241104: accomodating for new black rig params
     CustomXLabels = string(XLabels);
     h.XDisplayLabels = CustomXLabels;
     h.XDisplayLabels = compose('%.2f',str2double(h.XDisplayLabels));
@@ -30,18 +30,18 @@ if numel(unique(rig)) == 1
     % Place lines around selected column (assumes 1 unit in size)
     for k = 1:length(files)
         if strcmp(rig{k},'black') == 1
-            CS_col_1 = 68;  % frame
-            CS_col_2 = 151; % frame
+            CS_col_1 = 24; %68;  % frame %241104: accomodating new black rig params
+            CS_col_2 = 53.5; %151; % frame %241104: accomodating new black rig params
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 143; % frame
-            US_col_2 = 153; % frame
+            US_col_1 = 54; %143; % frame %241104: accomodating new black rig params
+            US_col_2 = 57; %153; % frame %241104: accomodating new black rig params
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         elseif strcmp(rig{k},'blue') == 1
             CS_col_1 = 24;  % frame
-            CS_col_2 = 53; % frame
+            CS_col_2 = 53.5; % frame
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 51; % frame
-            US_col_2 = 54; % frame
+            US_col_1 = 54; % frame
+            US_col_2 = 57; % frame
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         end
     end
@@ -92,18 +92,18 @@ elseif numel(unique(rig)) > 1
     % Place lines around selected column (assumes 1 unit in size)
     for k = 1:length(files)
         if strcmp(rig{k},'black') == 1
-            CS_col_1 = 68;  % frame
-            CS_col_2 = 151; % frame
+            CS_col_1 = 24; %68;  % frame %241104: accomodating new black rig params
+            CS_col_2 = 53.5; %151; % frame %241104: accomodating new black rig params
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 143; % frame
-            US_col_2 = 153; % frame
+            US_col_1 = 54; %143; % frame %241104: accomodating new black rig params
+            US_col_2 = 57; %153; % frame %241104: accomodating new black rig params
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         elseif strcmp(rig{k},'blue') == 1
             CS_col_1 = 24;  % frame
-            CS_col_2 = 53; % frame
+            CS_col_2 = 53.5; % frame
             xline(ax,[CS_col_1-0.5],'b-','Alpha',1,'LineWidth',1.5); xline(ax,[CS_col_2-0.5],'b-','Alpha',1,'LineWidth',1.5); % 2018b and newer
-            US_col_1 = 51; % frame
-            US_col_2 = 54; % frame
+            US_col_1 = 54; % frame
+            US_col_2 = 57; % frame
             xline(ax,[US_col_1-0.5],'g-','Alpha',1,'LineWidth',1.5); xline(ax,[US_col_2-0.5],'g-','Alpha',1,'LineWidth',1.5); % 2018b and newer
         end
     end
