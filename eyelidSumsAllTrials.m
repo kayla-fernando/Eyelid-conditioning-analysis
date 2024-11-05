@@ -7,9 +7,9 @@ clear all
 close all
 clc
 
-mouse = ['KF267']; 
-experiment = 'Thy1-ChR2';
-basepath = ['Z:\\home\kayla\Eyelid conditioning\' experiment '\'];
+mouse = ['mouse']; 
+experiment = 'experiment';
+basepath = ['Z:\\'];
 controlGroup = 1;
 blackwin = [52 53 54 55]; %[139 140 141 142]; %241104: accomodating for new black rig params
            %[23 24 25 26]; % sham optotraining for US-only trial analysis
