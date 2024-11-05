@@ -7,23 +7,37 @@ clear all
 close all
 clc
 
-mouse = 'mouse'; 
-experiment = 'experiment'
+mouse = ['KF267']; 
+experiment = 'Thy1-ChR2';
 basepath = ['Z:\\home\kayla\Eyelid conditioning\' experiment '\'];
 controlGroup = 1;
-blackwin = [139 140 141 142];
-bluewin = [47 48 49 50];
+blackwin = [52 53 54 55]; %[139 140 141 142]; %241104: accomodating for new black rig params
+           %[23 24 25 26]; % sham optotraining for US-only trial analysis
+bluewin =  [50 51 52 53]; % optotraining 250 ms ISI & CS-catch trial analysis           
+           %[79 80 81 82]; % optotraining 500 ms ISI
+           %[22 23 24 25]; % sham optotraining for US-only trial analysis
+           %[76 77 78 79]; % 5 kHz tone (CS2 training)       
 trialblocksize = 50;
+load('Z:\home\kayla\MATLAB\Saved workspaces\timesBlue.mat');
 
 % Preprocess eyelid conditioning data, output promptData.txt
-eyelidPreprocess; clearvars eyelid3_0_trials eyelid3_5_trials eyelid3_7_trials calib_trials catch_trials conditioning_trials 
+eyelidPreprocess; clearvars eyelid3_0_trials eyelid3_5_trials eyelid3_7_trials calib_trials catch_trials conditioning_trials % analyzing normally
+% eyelidPreprocessVarISI; clearvars eyelid3_0_trials eyelid3_00_trials eyelid3_5_trials eyelid3_6_trials CS1_catch_trials CS1_conditioning_trials CS2_catch_trials CS2_conditioning_trials % analyzing variable ISI
 
 % Define trial type to analyze
 if numel(unique(rig)) == 1
-    trialType = cspaired_all;
+    trialType = cspaired_all; %cs2paired_all; 
+    if size(trialType,2) == 334; %241104: accomodating for new black rig params
+        trialType = trialType(:,1:200);
+    end
 elseif numel(unique(rig)) > 1
-    trialType = cspaired_all_cell;
-end
+    trialType = cspaired_all_cell; %cs2paired_all_cell; 
+    for n = 1:size(trialType,2)
+        if size(trialType{n},2) == 334; %241104: accomodating for new black rig params
+            trialType{n} = trialType{n}(:,1:200);
+        end
+    end
+end 
 
 % Block process the array to replace every element in the 100 element-wide block by the mean of the values in the block
     % First, define the averaging function for use by blockproc()
@@ -31,7 +45,7 @@ end
     % Define the block parameters (m rows by n cols block). We will average every m trials
     for k = 1:length(files)
         if strcmp(rig{k},'black') == 1
-            blockSize{k} = [trialblocksize 334];
+            blockSize{k} = [trialblocksize 200]; %[trialblocksize 334]; %241104: accomodating for new black rig params
         elseif strcmp(rig{k},'blue') == 1
             blockSize{k} = [trialblocksize 200];
         end
@@ -61,7 +75,7 @@ if numel(unique(rig)) == 1
     % Binned CRamp
         if strcmp(rig,'black') == 1
             win = blackwin;
-            cramp = mean(trialType(:,win),2) - mean(trialType(:,1:66),2); 
+            cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2); %mean(trialType(:,1:66),2); %241104: accomodating for new black rig params
         elseif strcmp(rig,'blue') == 1
             win = bluewin;
             cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2); 
@@ -81,7 +95,7 @@ elseif numel(unique(rig)) > 1
             if strcmp(rig{k},'black') == 1
                 win{k} = blackwin;
                 trialTypeTemp = trialType{k};
-                cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:66),2); 
+                cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialType(:,1:10),2); %mean(trialTypeTemp(:,1:66),2); %241104: accomodating for new black rig params
             elseif strcmp(rig{k},'blue') == 1
                 win{k} = bluewin;
                 trialTypeTemp = trialType{k};
@@ -99,7 +113,7 @@ elseif numel(unique(rig)) > 1
                 CRprobs = blockSums./blockSizeTemp(1);
             end
 end
-[h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRprobs);
+[h,hf1] = plotBlockProcessedTrials(blockAveragedDownSignal,mouse,rig,files,trials,blockSizeTemp,CRprobs,times);
      
 % Calculate and plot binned CRamps across all trials using only successful CS-US trials while preserving temporal structure of training
 if numel(unique(rig)) == 1
