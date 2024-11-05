@@ -21,7 +21,8 @@ switch prompt
                         rig{k} = 'blue'; 
                     end
                 end
-                % Rename eyelid traces
+                % Rename eyelid traces 
+                %241104: didn't bother changing this function since output is cleared anyway
                 [conditioning_trials,calib_trials,catch_trials,eyelid3_5_trials,eyelid3_7_trials,eyelid3_0_trials,files,date] = renameEyelidTraces(cspaired_all_cell,usonly_all_cell,cscatch_all_cell,rig,files,directory,1);
                 % Write text file
                 writematrix([prompt prompt1],'promptData.txt');
@@ -32,6 +33,7 @@ switch prompt
                     % Blue rig throughout all of training
                     case 0
                         % Normalize, rename, and plot average eyelid traces of all trial types for each session
+                        %241104: didn't bother changing renameEyelidTraces since output is cleared anyway
                         [cspaired_all_cell,usonly_all_cell,cscatch_all_cell,cspaired_all,usonly_all,cscatch_all,files,directory,trials,date] = getAllEyelidTraces(mouse,basepath);
                         rig = cell(1,length(files)); rig(1,1:length(files)) = {'blue'};
                         [conditioning_trials,calib_trials,catch_trials,eyelid3_5_trials,eyelid3_7_trials,eyelid3_0_trials,files,date] = renameEyelidTraces(cspaired_all_cell,usonly_all_cell,cscatch_all_cell,rig,files,directory,1);
@@ -40,6 +42,7 @@ switch prompt
                     % Black rig throughout all of training
                     case 1         
                         % Normalize, rename, and plot average eyelid traces of all trial types for each session
+                        %241104: didn't bother changing renameEyelidTraces since output is cleared anyway
                         [cspaired_all_cell,usonly_all_cell,cscatch_all_cell,cspaired_all,usonly_all,cscatch_all,files,directory,trials,date] = getAllEyelidTraces(mouse,basepath);
                         rig = cell(1,length(files)); rig(1,1:length(files)) = {'black'};
                         [conditioning_trials,calib_trials,catch_trials,eyelid3_5_trials,eyelid3_7_trials,eyelid3_0_trials,files,date] = renameEyelidTraces(cspaired_all_cell,usonly_all_cell,cscatch_all_cell,rig,files,directory,1);
@@ -65,6 +68,7 @@ switch prompt
                     end
                 end
                 % Rename eyelid traces
+                %241104: didn't bother changing this function since output is cleared anyway
                 [conditioning_trials,calib_trials,catch_trials,eyelid3_5_trials,eyelid3_7_trials,eyelid3_0_trials,files,date] = renameEyelidTraces(cspaired_all_cell,usonly_all_cell,cscatch_all_cell,rig,files,directory,1);
                 % Write text file
                 writematrix([prompt prompt1],'promptData.txt');
@@ -75,6 +79,7 @@ switch prompt
                     % Blue rig throughout all of training
                     case 0
                         % Normalize, rename, and plot average eyelid traces of all trial types for each session, combining multiple sessions on a given day if necessary
+                        %241104: didn't bother changing renameEyelidTraces since output is cleared anyway
                         [cspaired_all_cell,usonly_all_cell,cscatch_all_cell,cspaired_all,usonly_all,cscatch_all,files,directory,trials,date] = getAllEyelidTraces_mSessions(mouse,basepath);
                         rig = cell(1,length(files)); rig(1,1:length(files)) = {'blue'};
                         [conditioning_trials,calib_trials,catch_trials,eyelid3_5_trials,eyelid3_7_trials,eyelid3_0_trials,files,date] = renameEyelidTraces(cspaired_all_cell,usonly_all_cell,cscatch_all_cell,rig,files,directory,1);
@@ -83,6 +88,7 @@ switch prompt
                   % Black rig throughout all of training
                     case 1
                         % Normalize, rename, and plot average eyelid traces of all trial types for each session, combining multiple sessions on a given day if necessary
+                        %241104: didn't bother changing renameEyelidTraces since output is cleared anyway
                         [cspaired_all_cell,usonly_all_cell,cscatch_all_cell,cspaired_all,usonly_all,cscatch_all,files,directory,trials,date] = getAllEyelidTraces_mSessions(mouse,basepath);
                         rig = cell(1,length(files)); rig(1,1:length(files)) = {'black'};
                         [conditioning_trials,calib_trials,catch_trials,eyelid3_5_trials,eyelid3_7_trials,eyelid3_0_trials,files,date] = renameEyelidTraces(cspaired_all_cell,usonly_all_cell,cscatch_all_cell,rig,files,directory,1);
