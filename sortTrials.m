@@ -8,7 +8,7 @@ if numel(unique(rig)) == 1
     % Black rig throughout training
     if strcmp(rig,'black') == 1
         win = blackwin; % determined through imageSubtraction.m
-        cramp = mean(trialType(:,win),2) - mean(trialType(:,1:66),2);
+        cramp = mean(trialType(:,win),2) - mean(trialType(:,1:10),2); %mean(trialType(:,1:66),2); %241104: accomodating for new black rig params
         for k = 1:length(cramp)
             if cramp(k) > 0.1 % 10 percent of normalized eyelid position throughout the trial
                 keep_trials{k} = trialType(k,:); % keep the trials that satisfy criterion
@@ -17,7 +17,7 @@ if numel(unique(rig)) == 1
         keep_trials_trialspace = keep_trials;
         keep_trials_idx = find(~cellfun('isempty',keep_trials));
         keep_trials = keep_trials(~cellfun('isempty',keep_trials)); keep_trials = vertcat(keep_trials{:});
-        keep_baseline = mean(keep_trials(:,1:66),2);
+        keep_baseline = mean(keep_trials(:,1:10),2); %mean(keep_trials(:,1:66),2); %241104: accomodating for new black rig params
         keep_cramp = mean(keep_trials(:,win),2) - keep_baseline; % keep the CRamp values that satisfy criterion
         fullCR = keep_baseline + keep_cramp; % unmasked CR
     % Blue rig throughout training
@@ -51,7 +51,7 @@ elseif numel(unique(rig)) > 1
         if strcmp(rig{k},'black') == 1
             win{k} = blackwin;
             trialTypeTemp = trialType{k};
-            cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialTypeTemp(:,1:66),2); 
+            cramp{k} = mean(trialTypeTemp(:,win{k}),2) - mean(trialType(:,1:10),2); %mean(trialTypeTemp(:,1:66),2); %241104: accomodating new black rig params
             keep_trials_temp = keep_trials{k};
             for ii = 1:length(cramp{k})
                 cramp_temp = cramp{k};
@@ -62,7 +62,7 @@ elseif numel(unique(rig)) > 1
             end
             for jj = 1:size(keep_trials{k},1)
                 keep_trials_temp_temp = keep_trials{k};
-                keep_baseline{k} = mean(keep_trials_temp_temp(:,1:66),2);
+                keep_baseline{k} = mean(keep_trials_temp_temp(:,1:10),2); %mean(keep_trials_temp_temp(:,1:66),2); %241104: accomodating new black rig params
             end
         % Fill this cell if on the blue rig on this session
         elseif strcmp(rig{k},'blue') == 1
@@ -96,7 +96,7 @@ elseif numel(unique(rig)) > 1
             for ii = 1:length(ses) % by specifically using this new session index
                 keep_trials_temp = keep_trials{ses(ii)}; % calculate CRamps for these sessions only
                 if strcmp(rig{ses(ii)},'black') == 1
-                    keep_cramp{ses(ii)} = mean(keep_trials_temp(:,win{ses(ii)}),2) - mean(keep_trials_temp(:,1:66),2);
+                    keep_cramp{ses(ii)} = mean(keep_trials_temp(:,win{ses(ii)}),2) - mean(keep_trials_temp(:,1:10),2); %mean(keep_trials_temp(:,1:66),2); %241104: accomodating new black rig params
                     for jj = 1:size(keep_trials{k},1)
                         fullCR{k}(jj) = keep_baseline{k}(jj) + keep_cramp{k}(jj);
                     end
@@ -113,7 +113,7 @@ elseif numel(unique(rig)) > 1
         for k = 1:length(files) % iterate through the entire list
             keep_trials_temp = keep_trials{k};
             if strcmp(rig{k},'black') == 1
-                keep_cramp{k} = mean(keep_trials_temp(:,win{k}),2) - mean(keep_trials_temp(:,1:66),2);
+                keep_cramp{k} = mean(keep_trials_temp(:,win{k}),2) - mean(keep_trials_temp(:,1:10),2); %mean(keep_trials_temp(:,1:66),2); %accomodating new black rig params
                 for jj = 1:size(keep_trials{k},1)
                     fullCR{k}(jj) = keep_baseline{k}(jj) + keep_cramp{k}(jj);
                 end
