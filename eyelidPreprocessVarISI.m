@@ -23,6 +23,7 @@ switch prompt
                     end
                 end
                 % Rename eyelid traces
+                %241104: didn't bother changing this function since outputs are cleared
                 [CS1_conditioning_trials,CS1_catch_trials,CS2_conditioning_trials,CS2_catch_trials,...
                     eyelid3_5_trials,eyelid3_0_trials,eyelid3_6_trials,eyelid3_00_trials,files,date] = ...
                     renameEyelidTracesVarISI(cs1paired_all_cell,cs1catch_all_cell,cs2paired_all_cell,cs2catch_all_cell,...
@@ -36,6 +37,7 @@ switch prompt
                     % Blue rig throughout all of training
                     case 0
                         % Normalize, rename, and plot average eyelid traces of all trial types for each session
+                        %241104: didn't bother changing renameEyelidTracesVarISI since outputs are cleared
                         [cs1paired_all_cell,cs1catch_all_cell,cs2paired_all_cell,cs2catch_all_cell,cs1paired_all,cs1catch_all,cs2paired_all,cs2catch_all,...
                             files,directory,trials,date] = getAllEyelidTracesVarISI(mouse,basepath);
                         rig = cell(1,length(files)); rig(1,1:length(files)) = {'blue'};
@@ -48,6 +50,7 @@ switch prompt
                     % Black rig throughout all of training
                     case 1         
                         % Normalize, rename, and plot average eyelid traces of all trial types for each session
+                        %241104: didn't bother changing renameEyelidTracesVarISI since outputs are cleared
                         [cs1paired_all_cell,cs1catch_all_cell,cs2paired_all_cell,cs2catch_all_cell,cs1paired_all,cs1catch_all,cs2paired_all,cs2catch_all,...
                             files,directory,trials,date] = getAllEyelidTracesVarISI(mouse,basepath);
                         rig = cell(1,length(files)); rig(1,1:length(files)) = {'black'};
@@ -78,6 +81,7 @@ switch prompt
                     end
                 end
                 % Rename eyelid traces
+                %241104: didn't bother changing this function since outputs are cleared
                 [CS1_conditioning_trials,CS1_catch_trials,CS2_conditioning_trials,CS2_catch_trials,...
                     eyelid3_5_trials,eyelid3_0_trials,eyelid3_6_trials,eyelid3_00_trials,files,date] = ...
                     renameEyelidTracesVarISI(cs1paired_all_cell,cs1catch_all_cell,cs2paired_all_cell,cs2catch_all_cell,...
@@ -91,6 +95,7 @@ switch prompt
                     % Blue rig throughout all of training
                     case 0
                         % Normalize, rename, and plot average eyelid traces of all trial types for each session, combining multiple sessions on a given day if necessary
+                        %241104: didn't bother changing renameEyelidTracesVarISI since outputs are cleared
                         [cs1paired_all_cell,cs1catch_all_cell,cs2paired_all_cell,cs2catch_all_cell,files,directory,trials,date] = ...
                             getAllEyelidTraces_mSessionsVarISI(mouse,basepath);
                         rig = cell(1,length(files)); rig(1,1:length(files)) = {'blue'};
@@ -103,6 +108,7 @@ switch prompt
                   % Black rig throughout all of training
                     case 1
                         % Normalize, rename, and plot average eyelid traces of all trial types for each session, combining multiple sessions on a given day if necessary
+                        %241104: didn't bother changing renameEyelidTracesVarISI since outputs are cleared
                         [cs1paired_all_cell,cs1catch_all_cell,cs2paired_all_cell,cs2catch_all_cell,files,directory,trials,date] = ...
                             getAllEyelidTraces_mSessionsVarISI(mouse,basepath);
                         rig = cell(1,length(files)); rig(1,1:length(files)) = {'black'};
