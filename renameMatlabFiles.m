@@ -2,10 +2,10 @@ close all
 clear all
 clc
 
-experiment = 'Thy1-ChR2';
+experiment = 'experiment';
 
-mouse = 'KF302';              
-date = '250228';
+mouse = 'mouse';              
+date = 'date';
 numTrials = 110;
 
 % Define the directory containing the files
