@@ -4,9 +4,9 @@
 % Set the maximum number of files to attempt
 maxFiles = 110;
 
-experiment = 'Thy1-ChR2';
-mouse = 'KF315';
-date = '250429';
+experiment = 'experiment';
+mouse = 'mouse';
+date = 'date';
 basepath = ['Z:\\home\kayla\Eyelid conditioning\' experiment '\'];
 
 for ii = 1:maxFiles
