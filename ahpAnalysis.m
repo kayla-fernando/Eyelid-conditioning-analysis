@@ -3,9 +3,9 @@ clear all
 clc
 
 % Load data
-folder = 'KF_250414'; 
-run = '2025_04_14_0001'; 
-basepath = 'Z:\\home\kayla\Electrophysiology\';
+folder = 'folder'; 
+run = 'run'; 
+basepath = 'Z:\\basepath';
 mousepath = [folder '\' run '.abf'];
 [d,si,h] = abfload([basepath mousepath]); %Sampling at 50 kHz. d: columns number of samples in a single sweep by the number of sweeps in file; s: sampling interval in us; h: file information
 clc
@@ -14,7 +14,7 @@ clc
 sweep = d(:,1);
 
 baseline_search = [0.001 0.100]; % search window in s
-event_search = [0.148 0.152]; % 1st stim-evoked PF AP
+event_search = [0.148 0.152]; % 1st simple spike AP
 Fs = 50000; % sampling rate in Hz
 
 for ii = 1:size(sweep,2)
@@ -126,3 +126,4 @@ mV_ms = mean(AHP) * (1/Fs) * 1000 % mV*ms
 % % Output
 % mV_sample = mean(AHP)
 % mV_ms = mean(AHP) * (1/Fs) * 1000
+
