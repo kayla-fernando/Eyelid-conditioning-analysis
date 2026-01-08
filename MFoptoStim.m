@@ -2,16 +2,16 @@ clear all
 close all
 clc
 
-experiment = 'ChR2 in MF opto stim';
+experiment = 'experiment';
 basepath = ['Z:\\home\kayla\Electrophysiology analysis\' experiment '\'];
-folder = 'KF_251216_analyzed';
-run = '2025_12_16_0000 - Copy - analyzed - all traces';
+folder = 'folder';
+run = 'run';
 mousepath = [folder '\' run '.abf'];
 [d,si,h] = abfload([basepath mousepath]); % Sampling at 50 kHz. d: columns number of samples in a single sweep by the number of sweeps in file; s: sampling interval in us; h: file information
 clc
 
 % Summary sweep, note specific power
-sweep = d(:,35);
+sweep = d(:,20);
 
 baseline_search = [0.001 0.200]; % search window in s
 event_search = [0.647 0.955]; %[0.647 0.895]; % 248 ms CS duration; fixed stim onset and offset
@@ -47,4 +47,5 @@ mV_ms_base = mV_sample_base * (1/Fs) * 1000 % subtract area of baseline; mV*ms
 %     peaks = [peak_1 peak_2 peak_3 peak_4 peak_5 peak_6 peak_7 peak_8]
 %     plot(peaks)
 %     lm = fitlm(1:length(peaks),peaks)
+
 % end
