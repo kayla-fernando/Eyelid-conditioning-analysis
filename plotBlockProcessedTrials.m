@@ -53,7 +53,7 @@ if numel(unique(rig)) == 1
     figure;
     hf1 = plot(CRprobs);
     title([mouse ' CRprob across all trials']);
-    xlabel(['Trial block ( ' num2str(blockSizeTemp(1)) ' trials each)']);
+    xlabel(['Trial block (' num2str(blockSizeTemp(1)) ' trials each)']);
     ylabel('Probability');
     xlim([0 size(blockAveragedDownSignal,1)]); ylim([0 1]);
 elseif numel(unique(rig)) > 1
